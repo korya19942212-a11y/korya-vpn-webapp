@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#1E1E2E">
+    <meta name="theme-color" content="#0f0f23">
     <title>KoryaVPN — Личный кабинет</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --tg-theme-bg-color: #1E1E2E;
-            --tg-theme-text-color: #FFFFFF;
-            --tg-theme-hint-color: #A0A0B2;
-            --tg-theme-link-color: #6C5DD3;
-            --tg-theme-button-color: #6C5DD3;
-            --tg-theme-button-text-color: #FFFFFF;
-            --tg-theme-secondary-bg-color: #2A2A3E;
+            --bg-dark: #0f0f23;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #252542;
+            --accent-green: #00ff88;
+            --accent-yellow: #ffd93d;
+            --accent-pink: #ff6b9d;
+            --accent-blue: #6bcfff;
+            --accent-orange: #ff9f43;
+            --text-white: #ffffff;
+            --text-gray: #a0a0b0;
         }
 
         * {
@@ -27,345 +29,539 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--tg-theme-bg-color);
-            color: var(--tg-theme-text-color);
+            font-family: 'Nunito', 'Comic Neue', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-white);
             min-height: 100vh;
             padding: 16px;
-            padding-bottom: 100px;
+            padding-bottom: 120px;
+            overflow-x: hidden;
+        }
+
+        /* Floating memes background */
+        .floating-memes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-meme {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.15;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
         }
 
         .container {
             max-width: 420px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
+        /* Header with wobble */
         .header {
             text-align: center;
-            margin-bottom: 24px;
-            padding-top: 10px;
+            margin-bottom: 20px;
+            animation: wobble 3s ease-in-out infinite;
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: rotate(-1deg); }
+            50% { transform: rotate(1deg); }
+        }
+
+        .logo {
+            font-size: 48px;
+            margin-bottom: 8px;
+            display: inline-block;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .header h1 {
             font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 4px;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--accent-green), var(--accent-blue), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .header p {
-            color: var(--tg-theme-hint-color);
+        .header .subtitle {
+            color: var(--accent-yellow);
             font-size: 14px;
+            font-weight: 700;
         }
 
-        .user-greeting {
-            text-align: center;
-            margin-bottom: 20px;
-            padding: 16px;
-            background: var(--tg-theme-secondary-bg-color);
-            border-radius: 16px;
-        }
-
-        .user-greeting .name {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .user-greeting .id {
-            font-size: 12px;
-            color: var(--tg-theme-hint-color);
-            margin-top: 4px;
-        }
-
-        .card {
-            background: linear-gradient(135deg, var(--tg-theme-button-color), #8677E3);
-            border-radius: 16px;
+        /* Greeting card */
+        .greeting {
+            background: linear-gradient(135deg, var(--bg-card), #2a2a4a);
+            border-radius: 20px;
             padding: 20px;
             margin-bottom: 16px;
-            box-shadow: 0 4px 20px rgba(108, 93, 211, 0.3);
+            text-align: center;
+            border: 2px solid var(--accent-green);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+            position: relative;
+            overflow: hidden;
         }
 
-        .card .label {
+        .greeting::before {
+            content: '✨';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .greeting .meme-face {
+            font-size: 50px;
+            margin-bottom: 8px;
+        }
+
+        .greeting .name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-yellow);
+        }
+
+        .greeting .meme-text {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-top: 4px;
+            font-style: italic;
+        }
+
+        /* Status card */
+        .status-card {
+            background: linear-gradient(135deg, #1e3a5f, #0d2137);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 2px solid var(--accent-blue);
+            position: relative;
+        }
+
+        .status-card .badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--accent-green);
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
             font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            opacity: 0.8;
+            font-weight: 700;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .status-card .title {
+            font-size: 14px;
+            color: var(--text-gray);
             margin-bottom: 4px;
         }
 
-        .card .value {
-            font-size: 20px;
-            font-weight: 600;
+        .status-card .value {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--accent-blue);
         }
 
-        .card .hint {
-            font-size: 13px;
-            opacity: 0.9;
+        .status-card .meme-status {
             margin-top: 12px;
+            padding: 10px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            font-size: 13px;
+            text-align: center;
         }
 
+        /* Action buttons grid */
         .actions {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .action-btn {
-            background: var(--tg-theme-secondary-bg-color);
-            border: none;
+            background: var(--bg-card);
+            border: 2px solid transparent;
             border-radius: 16px;
-            padding: 20px 16px;
+            padding: 20px 12px;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.2s, opacity 0.2s;
-            color: var(--tg-theme-text-color);
+            transition: all 0.3s ease;
+            color: var(--text-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
         }
 
         .action-btn:hover {
-            transform: translateY(-2px);
+            transform: translateY(-4px) rotate(1deg);
+            border-color: var(--accent-green);
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
         }
 
         .action-btn:active {
-            transform: scale(0.98);
-            opacity: 0.9;
+            transform: scale(0.95);
         }
 
         .action-btn .icon {
-            font-size: 28px;
+            font-size: 36px;
             margin-bottom: 8px;
+            display: block;
         }
 
         .action-btn .label {
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 700;
         }
 
-        .section {
-            margin-bottom: 24px;
+        .action-btn .meme-hint {
+            font-size: 10px;
+            color: var(--text-gray);
+            margin-top: 4px;
         }
 
-        .section-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--tg-theme-hint-color);
-        }
+        /* Special button styles */
+        .action-btn.vpn { border-color: var(--accent-green); }
+        .action-btn.vpn:hover { background: rgba(0, 255, 136, 0.1); }
+        
+        .action-btn.devices { border-color: var(--accent-blue); }
+        .action-btn.devices:hover { background: rgba(107, 207, 255, 0.1); }
+        
+        .action-btn.status { border-color: var(--accent-yellow); }
+        .action-btn.status:hover { background: rgba(255, 217, 61, 0.1); }
+        
+        .action-btn.buy { border-color: var(--accent-orange); }
+        .action-btn.buy:hover { background: rgba(255, 159, 67, 0.1); }
+        
+        .action-btn.help { border-color: var(--accent-pink); }
+        .action-btn.help:hover { background: rgba(255, 107, 157, 0.1); }
+        
+        .action-btn.support { border-color: #a855f7; }
+        .action-btn.support:hover { background: rgba(168, 85, 247, 0.1); }
 
-        .info-list {
-            background: var(--tg-theme-secondary-bg-color);
+        /* Meme quote section */
+        .meme-quote {
+            background: var(--bg-card);
             border-radius: 16px;
-            overflow: hidden;
-        }
-
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 16px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .info-item:last-child {
-            border-bottom: none;
-        }
-
-        .info-item .label {
-            color: var(--tg-theme-hint-color);
-            font-size: 14px;
-        }
-
-        .info-item .value {
-            font-weight: 500;
-            font-size: 14px;
-        }
-
-        .primary-btn {
-            width: 100%;
-            background: var(--tg-theme-button-color);
-            color: var(--tg-theme-button-text-color);
-            border: none;
             padding: 16px;
-            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-left: 4px solid var(--accent-yellow);
+        }
+
+        .meme-quote .quote {
             font-size: 16px;
-            font-weight: 600;
+            font-style: italic;
+            color: var(--accent-yellow);
+        }
+
+        .meme-quote .author {
+            font-size: 12px;
+            color: var(--text-gray);
+            margin-top: 8px;
+        }
+
+        /* Fun facts */
+        .fun-fact {
+            background: linear-gradient(135deg, #2d1b4e, #1a1a2e);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+            border: 2px dashed var(--accent-pink);
+        }
+
+        .fun-fact .emoji {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+
+        .fun-fact .text {
+            font-size: 14px;
+            color: var(--text-white);
+        }
+
+        /* Main button */
+        .main-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-green), #00cc6a);
+            color: #000;
+            border: none;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 900;
             cursor: pointer;
-            transition: opacity 0.2s;
-            margin-top: 16px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .primary-btn:hover {
-            opacity: 0.9;
+        .main-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(0, 255, 136, 0.4);
         }
 
+        .main-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Footer */
         .footer {
             text-align: center;
-            margin-top: 32px;
-            padding: 16px;
-            color: var(--tg-theme-hint-color);
+            margin-top: 24px;
+            color: var(--text-gray);
             font-size: 12px;
         }
 
-        .footer a {
-            color: var(--tg-theme-link-color);
-            text-decoration: none;
+        .footer .made-with {
+            margin-top: 8px;
         }
 
         /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        .animate-in {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .animate-in {
-            animation: fadeIn 0.3s ease-out forwards;
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+
+        /* Rainbow text for special elements */
+        .rainbow {
+            background: linear-gradient(90deg, #ff0000, #ff8800, #ffff00, #00ff00, #00ffff, #0088ff, #ff00ff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 3s ease infinite;
         }
 
-        .delay-1 { animation-delay: 0.1s; opacity: 0; }
-        .delay-2 { animation-delay: 0.2s; opacity: 0; }
-        .delay-3 { animation-delay: 0.3s; opacity: 0; }
-        .delay-4 { animation-delay: 0.4s; opacity: 0; }
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
     </style>
 </head>
 <body>
+    <!-- Floating background memes -->
+    <div class="floating-memes" id="floatingMemes"></div>
+
     <div class="container">
         <div class="header animate-in">
-            <h1>🔐 KoryaVPN</h1>
-            <p>Личный кабинет</p>
+            <div class="logo">🐸</div>
+            <h1>KoryaVPN</h1>
+            <p class="subtitle">vpn go brrrr 🚀</p>
         </div>
 
-        <div class="user-greeting animate-in delay-1" id="userGreeting">
-            <div class="name" id="userName">Загрузка...</div>
-            <div class="id" id="userId"></div>
+        <div class="greeting animate-in delay-1" id="greeting">
+            <div class="meme-face" id="memeFace">🐕</div>
+            <div class="name" id="userName">Wow, such user!</div>
+            <div class="meme-text" id="memeGreeting">Much secure, very private</div>
         </div>
 
-        <div class="card animate-in delay-2">
-            <div class="label">Быстрые действия</div>
-            <div class="value">Управляй VPN</div>
-            <div class="hint">Выбери действие ниже</div>
-        </div>
-
-        <div class="actions animate-in delay-3">
-            <button class="action-btn" onclick="sendAction('get_vpn')">
-                <div class="icon">🔐</div>
-                <div class="label">Получить VPN</div>
-            </button>
-            <button class="action-btn" onclick="sendAction('my_devices')">
-                <div class="icon">📱</div>
-                <div class="label">Мои устройства</div>
-            </button>
-            <button class="action-btn" onclick="sendAction('status')">
-                <div class="icon">📊</div>
-                <div class="label">Статус</div>
-            </button>
-            <button class="action-btn" onclick="sendAction('buy')">
-                <div class="icon">💳</div>
-                <div class="label">Купить доступ</div>
-            </button>
-            <button class="action-btn" onclick="sendAction('help')">
-                <div class="icon">❓</div>
-                <div class="label">Помощь</div>
-            </button>
-            <button class="action-btn" onclick="sendAction('support')">
-                <div class="icon">💬</div>
-                <div class="label">Поддержка</div>
-            </button>
-        </div>
-
-        <div class="section animate-in delay-4">
-            <div class="section-title">Информация</div>
-            <div class="info-list">
-                <div class="info-item">
-                    <span class="label">Протоколы</span>
-                    <span class="value">IKEv2, AmneziaWG</span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Устройств</span>
-                    <span class="value">до 5 шт.</span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Поддержка</span>
-                    <span class="value">24/7</span>
-                </div>
+        <div class="status-card animate-in delay-2">
+            <div class="badge">STONKS 📈</div>
+            <div class="title">Твой статус</div>
+            <div class="value">VIP Мемолорд</div>
+            <div class="meme-status">
+                🛡️ FBI уже не следит за тобой
             </div>
         </div>
 
-        <button class="primary-btn animate-in delay-4" onclick="closeApp()">
-            Вернуться в бота
+        <div class="actions animate-in delay-3">
+            <button class="action-btn vpn" onclick="sendAction('get_vpn')">
+                <span class="icon">🔐</span>
+                <span class="label">Получить VPN</span>
+                <span class="meme-hint">время хакермана</span>
+            </button>
+            <button class="action-btn devices" onclick="sendAction('my_devices')">
+                <span class="icon">📱</span>
+                <span class="label">Мои девайсы</span>
+                <span class="meme-hint">all my homies</span>
+            </button>
+            <button class="action-btn status" onclick="sendAction('status')">
+                <span class="icon">📊</span>
+                <span class="label">Статус</span>
+                <span class="meme-hint">stonks or not?</span>
+            </button>
+            <button class="action-btn buy" onclick="sendAction('buy')">
+                <span class="icon">💸</span>
+                <span class="label">Купить</span>
+                <span class="meme-hint">shut up & take my money</span>
+            </button>
+            <button class="action-btn help" onclick="sendAction('help')">
+                <span class="icon">🆘</span>
+                <span class="label">Помощь</span>
+                <span class="meme-hint">this is fine 🔥</span>
+            </button>
+            <button class="action-btn support" onclick="sendAction('support')">
+                <span class="icon">💬</span>
+                <span class="label">Поддержка</span>
+                <span class="meme-hint">we gotchu fam</span>
+            </button>
+        </div>
+
+        <div class="meme-quote animate-in delay-4">
+            <div class="quote" id="randomQuote">"С VPN даже мама не узнает что ты гуглил"</div>
+            <div class="author">— Древняя мудрость интернета</div>
+        </div>
+
+        <div class="fun-fact animate-in delay-4">
+            <span class="emoji">🤓</span>
+            <span class="text" id="funFact">Факт: 100% хакеров используют VPN. Совпадение? Не думаю.</span>
+        </div>
+
+        <button class="main-btn animate-in delay-5" onclick="closeApp()">
+            🚀 Вернуться в бота
         </button>
 
-        <div class="footer animate-in delay-4">
+        <div class="footer animate-in delay-5">
             <p>KoryaVPN © 2024</p>
-            <p style="margin-top: 4px;">
-                <a href="#" onclick="sendAction('help')">Помощь</a> · 
-                <a href="#" onclick="sendAction('support')">Поддержка</a>
-            </p>
+            <p class="made-with">Made with 💚 and memes</p>
         </div>
     </div>
 
     <script>
-        // Telegram WebApp
         const tg = window.Telegram.WebApp;
-        
-        // Initialize
         tg.ready();
         tg.expand();
-        
-        // Apply Telegram theme
-        if (tg.themeParams.bg_color) {
-            document.documentElement.style.setProperty('--tg-theme-bg-color', tg.themeParams.bg_color);
-        }
-        if (tg.themeParams.text_color) {
-            document.documentElement.style.setProperty('--tg-theme-text-color', tg.themeParams.text_color);
-        }
-        if (tg.themeParams.hint_color) {
-            document.documentElement.style.setProperty('--tg-theme-hint-color', tg.themeParams.hint_color);
-        }
-        if (tg.themeParams.button_color) {
-            document.documentElement.style.setProperty('--tg-theme-button-color', tg.themeParams.button_color);
-        }
-        if (tg.themeParams.secondary_bg_color) {
-            document.documentElement.style.setProperty('--tg-theme-secondary-bg-color', tg.themeParams.secondary_bg_color);
-        }
 
-        // Set user info
+        // Meme faces for greeting
+        const memeFaces = ['🐸', '🐕', '😎', '🦍', '🐱', '👽', '🤖', '💀', '🎃', '🦊'];
+        const memeGreetings = [
+            'Much secure, very private',
+            'Hackerman mode: ON',
+            'FBI left the chat',
+            'Incognito 100',
+            'Твой провайдер в шоке',
+            'Анонимность goes brrrr',
+            'VPN gang rise up',
+            'Security level: over 9000',
+            'Мама не узнает',
+            'Big brain time'
+        ];
+
+        const quotes = [
+            '"С VPN даже мама не узнает что ты гуглил"',
+            '"Я использую VPN не потому что мне есть что скрывать, а потому что это круто"',
+            '"VPN — это как плащ-невидимка, только для интернета"',
+            '"Без VPN — это как выйти на улицу голым"',
+            '"Провайдер: 👀 | Я с VPN: 🕶️"',
+            '"FBI хочет знать твою локацию. VPN: нет."',
+            '"Хакеры ненавидят этот простой трюк!"'
+        ];
+
+        const funFacts = [
+            '🤓 Факт: 100% хакеров используют VPN. Совпадение? Не думаю.',
+            '🌍 Факт: С VPN ты можешь быть в 50 странах одновременно!',
+            '🔒 Факт: VPN шифрует трафик так, что даже твой кот не разберётся.',
+            '⚡ Факт: Наш VPN быстрее, чем твой бывший ушёл из отношений.',
+            '🦸 Факт: Супергерои носят плащи. Ты используешь VPN. Это одно и то же.',
+            '📡 Факт: Без VPN твой провайдер знает о тебе больше, чем твоя мама.'
+        ];
+
+        // Set random meme elements
+        document.getElementById('memeFace').textContent = memeFaces[Math.floor(Math.random() * memeFaces.length)];
+        document.getElementById('memeGreeting').textContent = memeGreetings[Math.floor(Math.random() * memeGreetings.length)];
+        document.getElementById('randomQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+        document.getElementById('funFact').textContent = funFacts[Math.floor(Math.random() * funFacts.length)];
+
+        // Set user name
         const user = tg.initDataUnsafe?.user;
         if (user) {
-            const name = user.first_name + (user.last_name ? ' ' + user.last_name : '');
-            document.getElementById('userName').textContent = `Привет, ${name}! 👋`;
-            document.getElementById('userId').textContent = `ID: ${user.id}`;
-        } else {
-            document.getElementById('userName').textContent = 'Привет! 👋';
-            document.getElementById('userId').textContent = '';
+            const name = user.first_name || 'Анон';
+            const greetings = [
+                `Йоу, ${name}! 👋`,
+                `Легенда вернулась: ${name}`,
+                `${name} in da house!`,
+                `Wow, such ${name}!`,
+                `Чел, ${name}, ты крут!`
+            ];
+            document.getElementById('userName').textContent = greetings[Math.floor(Math.random() * greetings.length)];
         }
 
-        // Send action to bot
+        // Create floating memes
+        const floatingEmojis = ['🐸', '🚀', '💎', '🔥', '✨', '🎮', '🎯', '💀', '👾', '🦄', '🌈', '⚡'];
+        const container = document.getElementById('floatingMemes');
+        
+        for (let i = 0; i < 15; i++) {
+            const meme = document.createElement('div');
+            meme.className = 'floating-meme';
+            meme.textContent = floatingEmojis[Math.floor(Math.random() * floatingEmojis.length)];
+            meme.style.left = Math.random() * 100 + '%';
+            meme.style.animationDelay = Math.random() * 20 + 's';
+            meme.style.animationDuration = (15 + Math.random() * 15) + 's';
+            container.appendChild(meme);
+        }
+
+        // Actions
         function sendAction(action) {
-            // Haptic feedback
-            if (tg.HapticFeedback) {
-                tg.HapticFeedback.impactOccurred('light');
-            }
-            
-            // Send data to bot
-            tg.sendData(JSON.stringify({ action: action }));
-            
-            // Close after small delay for better UX
-            setTimeout(() => {
-                tg.close();
-            }, 100);
-        }
-
-        // Close app
-        function closeApp() {
             if (tg.HapticFeedback) {
                 tg.HapticFeedback.impactOccurred('medium');
             }
-            tg.close();
+            tg.sendData(JSON.stringify({ action: action }));
+            setTimeout(() => tg.close(), 150);
         }
 
-        // Main button (optional)
-        tg.MainButton.setText('Вернуться в бота');
-        tg.MainButton.onClick(closeApp);
-        // tg.MainButton.show(); // Uncomment to show main button
+        function closeApp() {
+            if (tg.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('heavy');
+            }
+            tg.close();
+        }
     </script>
 </body>
 </html>
