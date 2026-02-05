@@ -705,22 +705,27 @@
             }, 2500);
         }
 
+        // Проверка что мы внутри Telegram
+        const isInTelegram = tg && tg.initDataUnsafe && tg.initDataUnsafe.user;
+
         // Перейти в бота с действием
         function goToBot(action) {
             if (tg?.HapticFeedback) {
                 tg.HapticFeedback.impactOccurred('medium');
             }
 
-            showToast('🚀 Переход в бота...');
-
-            setTimeout(() => {
-                if (tg) {
-                    // Отправляем данные в бота и закрываем
+            if (isInTelegram) {
+                showToast('🚀 Переход в бота...');
+                setTimeout(() => {
                     tg.sendData(JSON.stringify({ action: action }));
-                } else {
-                    showToast('⚠️ Откройте через Telegram!');
-                }
-            }, 800);
+                }, 800);
+            } else {
+                // В браузере - показываем ссылку на бота
+                showToast('📱 Откройте бота: @KoryaVPNBot');
+                setTimeout(() => {
+                    window.open('https://t.me/KoryaVPNBot', '_blank');
+                }, 1500);
+            }
         }
 
         // Закрыть приложение
@@ -729,10 +734,13 @@
                 tg.HapticFeedback.impactOccurred('heavy');
             }
 
-            if (tg) {
+            if (isInTelegram) {
                 tg.close();
             } else {
-                showToast('🚀 Откройте через Telegram бота!');
+                showToast('📱 Откройте бота: @KoryaVPNBot');
+                setTimeout(() => {
+                    window.open('https://t.me/KoryaVPNBot', '_blank');
+                }, 1500);
             }
         }
     </script>
