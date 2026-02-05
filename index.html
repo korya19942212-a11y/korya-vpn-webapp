@@ -575,6 +575,121 @@
             color: #00ff88;
         }
 
+        .plan-card:hover {
+            transform: scale(1.02);
+            border-color: var(--nebula-blue);
+            cursor: pointer;
+        }
+
+        /* Device Cards */
+        .device-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .device-card.active {
+            border-color: var(--nebula-blue);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .device-card.inactive {
+            opacity: 0.6;
+        }
+
+        .device-icon {
+            font-size: 28px;
+        }
+
+        .device-info {
+            flex: 1;
+        }
+
+        .device-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .device-type {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .device-status {
+            font-size: 16px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .empty-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .empty-hint {
+            font-size: 13px;
+            margin-top: 6px;
+            opacity: 0.7;
+        }
+
+        /* Counter Badge */
+        .counter-badge {
+            font-size: 12px;
+            background: rgba(0, 212, 255, 0.2);
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 8px;
+        }
+
+        /* Device Actions */
+        .device-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .device-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 8px;
+            padding: 6px 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+
+        .device-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .device-btn.delete:hover {
+            background: rgba(255, 100, 100, 0.3);
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 16px 0;
+        }
+
         /* FAQ Items */
         .faq-item {
             background: rgba(255, 255, 255, 0.05);
@@ -704,7 +819,8 @@
                 <div class="panel-title">Получить VPN</div>
             </div>
             <div class="panel-content">
-                <div class="protocol-card" onclick="showSubPanel('vpn-awg')">
+                <p style="margin-bottom: 12px;">Выбери протокол для создания конфига:</p>
+                <div class="protocol-card" onclick="createDevice('wg')">
                     <div class="protocol-icon">⚡</div>
                     <div class="protocol-info">
                         <div class="protocol-name">AmneziaWG</div>
@@ -712,14 +828,17 @@
                     </div>
                     <div class="protocol-badge recommended">Рекомендуем</div>
                 </div>
-                <div class="protocol-card" onclick="showSubPanel('vpn-ikev2')">
+                <div class="protocol-card" onclick="createDevice('ikev2')">
                     <div class="protocol-icon">🔒</div>
                     <div class="protocol-info">
                         <div class="protocol-name">IKEv2</div>
                         <div class="protocol-desc">Встроен в систему, без приложений</div>
                     </div>
                 </div>
-                <button class="btn-action" onclick="goToBot('get_vpn')" style="margin-top: 16px;">🚀 Получить конфиг</button>
+                <div class="divider"></div>
+                <p><strong>📖 Подробнее о протоколах:</strong></p>
+                <button class="btn-action btn-secondary" onclick="showSubPanel('vpn-awg')" style="margin-top: 8px;">⚡ О AmneziaWG</button>
+                <button class="btn-action btn-secondary" onclick="showSubPanel('vpn-ikev2')" style="margin-top: 8px;">🔒 О IKEv2</button>
             </div>
         </div>
 
@@ -740,7 +859,9 @@
                 <p style="margin-top: 16px;"><strong>📱 Приложения:</strong></p>
                 <p>• iOS/Android: <span class="highlight">AmneziaVPN</span></p>
                 <p>• Windows/Mac/Linux: <span class="highlight">AmneziaVPN</span></p>
-                <button class="btn-action btn-secondary" onclick="showPanel('vpn')" style="margin-top: 16px;">⬅️ Назад</button>
+                <div class="divider"></div>
+                <button class="btn-action" onclick="createDevice('wg')">🚀 Создать AmneziaWG конфиг</button>
+                <button class="btn-action btn-secondary" onclick="showPanel('vpn')" style="margin-top: 8px;">⬅️ Назад</button>
             </div>
         </div>
 
@@ -762,33 +883,30 @@
                 <p>• iOS, macOS — встроено</p>
                 <p>• Windows — встроено</p>
                 <p>• Android — StrongSwan</p>
-                <button class="btn-action btn-secondary" onclick="showPanel('vpn')" style="margin-top: 16px;">⬅️ Назад</button>
+                <div class="divider"></div>
+                <button class="btn-action" onclick="createDevice('ikev2')">🚀 Создать IKEv2 конфиг</button>
+                <button class="btn-action btn-secondary" onclick="showPanel('vpn')" style="margin-top: 8px;">⬅️ Назад</button>
             </div>
         </div>
 
         <div class="content-panel" id="panel-devices">
             <div class="panel-header">
                 <div class="panel-icon">🛰️</div>
-                <div class="panel-title">Мои устройства</div>
+                <div class="panel-title">Мои устройства <span id="devices-counter" class="counter-badge">0/5</span></div>
             </div>
             <div class="panel-content">
-                <div class="info-row">
-                    <span class="info-label">Максимум устройств</span>
-                    <span class="info-value highlight">до 5 шт.</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">Протоколы</span>
-                    <span class="info-value">AmneziaWG, IKEv2</span>
+                <div id="devices-list">
+                    <div class="empty-state">
+                        <div class="empty-icon">📱</div>
+                        <div class="empty-text">Загрузка...</div>
+                    </div>
                 </div>
                 <div class="divider"></div>
-                <p><strong>💡 Как это работает:</strong></p>
-                <p>• Каждому устройству — свой конфиг</p>
-                <p>• Можно добавлять и удалять устройства</p>
-                <p>• Все устройства работают одновременно</p>
-                <div class="divider"></div>
-                <p><strong>📱 Примеры устройств:</strong></p>
-                <p>Телефон, планшет, ноутбук, ПК, роутер</p>
-                <button class="btn-action" onclick="goToBot('my_devices')" style="margin-top: 16px;">📱 Управление устройствами</button>
+                <p><strong>💡 Совет:</strong> Каждому устройству нужен свой конфиг</p>
+                <div style="display: flex; gap: 8px; margin-top: 12px;">
+                    <button class="btn-action" onclick="createDevice('wg')" style="flex: 1;">⚡ AmneziaWG</button>
+                    <button class="btn-action btn-secondary" onclick="createDevice('ikev2')" style="flex: 1;">🔒 IKEv2</button>
+                </div>
             </div>
         </div>
 
@@ -799,17 +917,31 @@
             </div>
             <div class="panel-content">
                 <div class="status-card">
+                    <div class="status-icon">📋</div>
+                    <div class="status-info">
+                        <div class="status-label">Тариф</div>
+                        <div class="status-value" id="status-plan">Загрузка...</div>
+                    </div>
+                </div>
+                <div class="status-card">
+                    <div class="status-icon">📅</div>
+                    <div class="status-info">
+                        <div class="status-label">Активен до</div>
+                        <div class="status-value" id="status-until">—</div>
+                    </div>
+                </div>
+                <div class="status-card">
+                    <div class="status-icon">📱</div>
+                    <div class="status-info">
+                        <div class="status-label">Устройств</div>
+                        <div class="status-value" id="status-devices">0/0</div>
+                    </div>
+                </div>
+                <div class="status-card">
                     <div class="status-icon">🚀</div>
                     <div class="status-info">
                         <div class="status-label">Сервер</div>
                         <div class="status-value">🟢 Онлайн</div>
-                    </div>
-                </div>
-                <div class="status-card">
-                    <div class="status-icon">🛡️</div>
-                    <div class="status-info">
-                        <div class="status-label">Защита</div>
-                        <div class="status-value">100%</div>
                     </div>
                 </div>
                 <div class="status-card">
@@ -831,32 +963,28 @@
                 <div class="panel-title">Тарифы</div>
             </div>
             <div class="panel-content">
-                <div class="plan-card">
-                    <div class="plan-duration">1 месяц</div>
-                    <div class="plan-price">100 ₽</div>
-                    <div class="plan-per-month">100 ₽/мес</div>
+                <div id="plans-list">
+                    <div class="plan-card">
+                        <div class="plan-duration">1 месяц</div>
+                        <div class="plan-price">100 ₽</div>
+                        <div class="plan-per-month">100 ₽/мес</div>
+                    </div>
+                    <div class="plan-card popular">
+                        <div class="plan-badge">Популярный</div>
+                        <div class="plan-duration">3 месяца</div>
+                        <div class="plan-price">250 ₽</div>
+                        <div class="plan-per-month">83 ₽/мес</div>
+                        <div class="plan-save">Экономия 17%</div>
+                    </div>
+                    <div class="plan-card best">
+                        <div class="plan-badge">Лучшая цена</div>
+                        <div class="plan-duration">12 месяцев</div>
+                        <div class="plan-price">800 ₽</div>
+                        <div class="plan-per-month">67 ₽/мес</div>
+                        <div class="plan-save">Экономия 33%</div>
+                    </div>
                 </div>
-                <div class="plan-card popular">
-                    <div class="plan-badge">Популярный</div>
-                    <div class="plan-duration">3 месяца</div>
-                    <div class="plan-price">250 ₽</div>
-                    <div class="plan-per-month">83 ₽/мес</div>
-                    <div class="plan-save">Экономия 17%</div>
-                </div>
-                <div class="plan-card">
-                    <div class="plan-duration">6 месяцев</div>
-                    <div class="plan-price">450 ₽</div>
-                    <div class="plan-per-month">75 ₽/мес</div>
-                    <div class="plan-save">Экономия 25%</div>
-                </div>
-                <div class="plan-card best">
-                    <div class="plan-badge">Лучшая цена</div>
-                    <div class="plan-duration">12 месяцев</div>
-                    <div class="plan-price">800 ₽</div>
-                    <div class="plan-per-month">67 ₽/мес</div>
-                    <div class="plan-save">Экономия 33%</div>
-                </div>
-                <button class="btn-action" onclick="goToBot('buy_plans')" style="margin-top: 16px;">💳 Оплатить</button>
+                <p style="margin-top: 16px; text-align: center; opacity: 0.7;">Выбери тариф для оплаты</p>
             </div>
         </div>
 
@@ -1007,6 +1135,271 @@
 
         createStars();
         createSpaceObjects();
+
+        // Загрузка данных при старте
+        if (isInTelegram) {
+            setTimeout(() => {
+                loadUserData();
+                loadPlans();
+            }, 500);
+        }
+
+        // ===== API Configuration =====
+        const API_URL = 'https://koryavpn.loca.lt';
+        let userData = null;
+        let userDevices = [];
+        let plans = [];
+        let isLoading = false;
+
+        // Получить initData для API
+        function getInitData() {
+            return tg?.initData || '';
+        }
+
+        // API запрос
+        async function apiRequest(endpoint, options = {}) {
+            const headers = {
+                'Content-Type': 'application/json',
+                'bypass-tunnel-reminder': 'true',
+            };
+            
+            const initData = getInitData();
+            if (initData) {
+                headers['X-Telegram-Init-Data'] = initData;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}${endpoint}`, {
+                    ...options,
+                    headers: { ...headers, ...options.headers },
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                return null;
+            }
+        }
+
+        // Загрузка данных пользователя
+        async function loadUserData() {
+            if (!isInTelegram) return;
+            
+            showToast('⏳ Загрузка...');
+            const data = await apiRequest('/api/user');
+            if (data) {
+                userData = data;
+                renderUserInfo();
+                renderDevicesPanel();
+                renderStatusPanel();
+            }
+        }
+
+        // Загрузка тарифов
+        async function loadPlans() {
+            const data = await apiRequest('/api/plans');
+            if (data && data.plans) {
+                plans = data.plans;
+                renderPlansPanel();
+            }
+        }
+
+        // Рендер информации пользователя
+        function renderUserInfo() {
+            if (!userData) return;
+            
+            const statusEl = document.getElementById('userRank');
+            if (statusEl) {
+                const daysLeft = userData.active_until 
+                    ? Math.ceil((new Date(userData.active_until) - new Date()) / (1000 * 60 * 60 * 24))
+                    : 0;
+                
+                if (daysLeft > 0) {
+                    statusEl.textContent = `${userData.plan_name} • ${daysLeft} дн.`;
+                } else {
+                    statusEl.textContent = 'Подписка неактивна';
+                }
+            }
+        }
+
+        // Рендер панели устройств
+        function renderDevicesPanel() {
+            if (!userData) return;
+            
+            const panel = document.getElementById('devices-list');
+            if (!panel) return;
+            
+            if (userData.devices.length === 0) {
+                panel.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📱</div>
+                        <div class="empty-text">Нет устройств</div>
+                        <div class="empty-hint">Нажми "Получить VPN" чтобы добавить</div>
+                    </div>
+                `;
+            } else {
+                panel.innerHTML = userData.devices.map(d => `
+                    <div class="device-card ${d.status}">
+                        <div class="device-icon">${d.icon}</div>
+                        <div class="device-info">
+                            <div class="device-name">${d.name}</div>
+                            <div class="device-type">${d.type === 'wg' ? 'AmneziaWG' : 'IKEv2'}</div>
+                        </div>
+                        <div class="device-actions">
+                            <button class="device-btn delete" onclick="deleteDevice(${d.id}, '${d.type}')" title="Удалить">
+                                🗑️
+                            </button>
+                        </div>
+                        <div class="device-status ${d.status}">
+                            ${d.status === 'active' ? '🟢' : '🔴'}
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Обновить счётчик
+            const counter = document.getElementById('devices-counter');
+            if (counter) {
+                counter.textContent = `${userData.current_devices}/${userData.max_devices}`;
+            }
+        }
+
+        // Рендер панели статуса
+        function renderStatusPanel() {
+            if (!userData) return;
+            
+            const planEl = document.getElementById('status-plan');
+            const untilEl = document.getElementById('status-until');
+            const devicesEl = document.getElementById('status-devices');
+            
+            if (planEl) planEl.textContent = userData.plan_name || 'Не активна';
+            if (untilEl) {
+                if (userData.active_until) {
+                    const date = new Date(userData.active_until);
+                    untilEl.textContent = date.toLocaleDateString('ru-RU');
+                } else {
+                    untilEl.textContent = '—';
+                }
+            }
+            if (devicesEl) devicesEl.textContent = `${userData.current_devices}/${userData.max_devices}`;
+        }
+
+        // Рендер тарифов
+        function renderPlansPanel() {
+            const panel = document.getElementById('plans-list');
+            if (!panel || plans.length === 0) return;
+            
+            panel.innerHTML = plans.map((p, i) => {
+                const isPopular = i === 1;
+                const isBest = i === plans.length - 1;
+                const pricePerMonth = Math.round(p.price / (p.days / 30));
+                const basePrice = plans[0]?.price ? (plans[0].price / (plans[0].days / 30)) : pricePerMonth;
+                const savings = basePrice > pricePerMonth ? Math.round((1 - pricePerMonth / basePrice) * 100) : 0;
+                
+                return `
+                    <div class="plan-card ${isPopular ? 'popular' : ''} ${isBest ? 'best' : ''}" onclick="selectPlan(${p.id})">
+                        ${isPopular ? '<div class="plan-badge">Популярный</div>' : ''}
+                        ${isBest ? '<div class="plan-badge">Лучшая цена</div>' : ''}
+                        <div class="plan-duration">${p.name}</div>
+                        <div class="plan-price">${p.price_display}</div>
+                        <div class="plan-per-month">${pricePerMonth} ₽/мес</div>
+                        ${savings > 0 ? `<div class="plan-save">Экономия ${savings}%</div>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Выбор тарифа
+        // Выбор тарифа и создание платежа
+        async function selectPlan(planId) {
+            if (tg?.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('medium');
+            }
+            
+            showToast('💳 Создание платежа...');
+            
+            const result = await apiRequest('/api/payments/create', {
+                method: 'POST',
+                body: JSON.stringify({ plan_id: planId })
+            });
+            
+            if (result && result.status === 'redirect') {
+                showToast(`💫 ${result.plan.name} - ${result.plan.price_display}`);
+                setTimeout(() => {
+                    if (result.bot_deeplink && !isInTelegram) {
+                        window.open(result.bot_deeplink, '_blank');
+                    } else {
+                        goToBot(result.action);
+                    }
+                }, 1000);
+            } else {
+                showToast('❌ Ошибка создания платежа');
+            }
+        }
+
+        // Создание нового устройства
+        async function createDevice(protocol = 'wg') {
+            if (tg?.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('medium');
+            }
+            
+            showToast('⏳ Создание конфига...');
+            
+            const deviceName = `Устройство ${(userData?.current_devices || 0) + 1}`;
+            
+            const result = await apiRequest('/api/devices/create', {
+                method: 'POST',
+                body: JSON.stringify({ 
+                    protocol: protocol,
+                    device_name: deviceName 
+                })
+            });
+            
+            if (result) {
+                if (result.status === 'redirect') {
+                    showToast('📱 Переход в бот...');
+                    setTimeout(() => {
+                        if (result.bot_deeplink && !isInTelegram) {
+                            window.open(result.bot_deeplink, '_blank');
+                        } else {
+                            goToBot(`get_vpn_${protocol}`);
+                        }
+                    }, 1000);
+                } else if (result.can_create === false) {
+                    showToast(`❌ Лимит: ${result.current_devices}/${result.max_devices}`);
+                }
+            } else {
+                showToast('❌ Ошибка создания');
+            }
+        }
+
+        // Удаление устройства
+        async function deleteDevice(deviceId, deviceType = 'wg') {
+            if (tg?.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('heavy');
+            }
+            
+            if (!confirm('Удалить это устройство?')) {
+                return;
+            }
+            
+            showToast('🗑️ Удаление...');
+            
+            const result = await apiRequest(`/api/devices/${deviceId}?device_type=${deviceType}`, {
+                method: 'DELETE'
+            });
+            
+            if (result && result.status === 'success') {
+                showToast('✅ Устройство удалено');
+                loadUserData(); // Обновить список
+            } else {
+                showToast('❌ Ошибка удаления');
+            }
+        }
 
         // Текущая открытая панель
         let currentPanel = null;
