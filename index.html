@@ -417,6 +417,230 @@
             box-shadow: inset -20px -20px 40px rgba(0,0,0,0.5), 0 0 60px rgba(118, 75, 162, 0.3);
             z-index: 0;
         }
+
+        /* Protocol Cards */
+        .protocol-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .protocol-card:hover, .protocol-card:active {
+            border-color: var(--nebula-blue);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .protocol-icon {
+            font-size: 28px;
+        }
+
+        .protocol-info {
+            flex: 1;
+        }
+
+        .protocol-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .protocol-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .protocol-badge {
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .protocol-badge.recommended {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+
+        /* Feature list */
+        .feature-list {
+            margin: 12px 0;
+        }
+
+        .feature {
+            padding: 6px 0;
+            color: var(--text-secondary);
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 16px 0;
+        }
+
+        /* Status Cards */
+        .status-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .status-card:last-of-type {
+            border-bottom: none;
+        }
+
+        .status-icon {
+            font-size: 24px;
+        }
+
+        .status-info {
+            flex: 1;
+        }
+
+        .status-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .status-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Plan Cards */
+        .plan-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            position: relative;
+        }
+
+        .plan-card.popular {
+            border-color: var(--nebula-blue);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .plan-card.best {
+            border-color: var(--star-gold);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: -8px;
+            right: 12px;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            background: var(--cosmic-gradient);
+            color: white;
+            font-weight: 600;
+        }
+
+        .plan-duration {
+            font-weight: 600;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .plan-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--star-gold);
+        }
+
+        .plan-per-month {
+            width: 100%;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .plan-save {
+            font-size: 11px;
+            color: #00ff88;
+        }
+
+        /* FAQ Items */
+        .faq-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--nebula-blue);
+        }
+
+        .faq-item.open {
+            border-color: var(--nebula-blue);
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .faq-question {
+            padding: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .faq-answer {
+            padding: 0 14px 14px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.5;
+            display: none;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        /* Support Card */
+        .support-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .support-icon {
+            font-size: 32px;
+        }
+
+        .support-info {
+            flex: 1;
+        }
+
+        .support-title {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .support-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
     </style>
 </head>
 <body>
@@ -480,10 +704,65 @@
                 <div class="panel-title">Получить VPN</div>
             </div>
             <div class="panel-content">
-                <p>Выбери протокол для подключения:</p>
-                <p><strong>⚡ AmneziaWG</strong> — быстрый и стабильный, рекомендуем!</p>
-                <p><strong>🔒 IKEv2</strong> — встроенный в систему, без приложений</p>
-                <button class="btn-action" onclick="goToBot('get_vpn')">🚀 Получить конфиг в боте</button>
+                <div class="protocol-card" onclick="showSubPanel('vpn-awg')">
+                    <div class="protocol-icon">⚡</div>
+                    <div class="protocol-info">
+                        <div class="protocol-name">AmneziaWG</div>
+                        <div class="protocol-desc">Быстрый и стабильный, обходит блокировки</div>
+                    </div>
+                    <div class="protocol-badge recommended">Рекомендуем</div>
+                </div>
+                <div class="protocol-card" onclick="showSubPanel('vpn-ikev2')">
+                    <div class="protocol-icon">🔒</div>
+                    <div class="protocol-info">
+                        <div class="protocol-name">IKEv2</div>
+                        <div class="protocol-desc">Встроен в систему, без приложений</div>
+                    </div>
+                </div>
+                <button class="btn-action" onclick="goToBot('get_vpn')" style="margin-top: 16px;">🚀 Получить конфиг</button>
+            </div>
+        </div>
+
+        <!-- Подпанель AmneziaWG -->
+        <div class="content-panel" id="panel-vpn-awg">
+            <div class="panel-header">
+                <div class="panel-icon">⚡</div>
+                <div class="panel-title">AmneziaWG</div>
+            </div>
+            <div class="panel-content">
+                <p class="highlight"><strong>Лучший выбор для России!</strong></p>
+                <div class="feature-list">
+                    <div class="feature">✅ Обходит блокировки DPI</div>
+                    <div class="feature">✅ Высокая скорость</div>
+                    <div class="feature">✅ Низкий пинг</div>
+                    <div class="feature">✅ Работает стабильно 24/7</div>
+                </div>
+                <p style="margin-top: 16px;"><strong>📱 Приложения:</strong></p>
+                <p>• iOS/Android: <span class="highlight">AmneziaVPN</span></p>
+                <p>• Windows/Mac/Linux: <span class="highlight">AmneziaVPN</span></p>
+                <button class="btn-action btn-secondary" onclick="showPanel('vpn')" style="margin-top: 16px;">⬅️ Назад</button>
+            </div>
+        </div>
+
+        <!-- Подпанель IKEv2 -->
+        <div class="content-panel" id="panel-vpn-ikev2">
+            <div class="panel-header">
+                <div class="panel-icon">🔒</div>
+                <div class="panel-title">IKEv2</div>
+            </div>
+            <div class="panel-content">
+                <p><strong>Встроенный протокол</strong></p>
+                <div class="feature-list">
+                    <div class="feature">✅ Не нужны приложения</div>
+                    <div class="feature">✅ Настройка через систему</div>
+                    <div class="feature">✅ Стабильное соединение</div>
+                    <div class="feature">⚠️ Может блокироваться провайдером</div>
+                </div>
+                <p style="margin-top: 16px;"><strong>📱 Поддержка:</strong></p>
+                <p>• iOS, macOS — встроено</p>
+                <p>• Windows — встроено</p>
+                <p>• Android — StrongSwan</p>
+                <button class="btn-action btn-secondary" onclick="showPanel('vpn')" style="margin-top: 16px;">⬅️ Назад</button>
             </div>
         </div>
 
@@ -495,14 +774,21 @@
             <div class="panel-content">
                 <div class="info-row">
                     <span class="info-label">Максимум устройств</span>
-                    <span class="info-value">до 5 шт.</span>
+                    <span class="info-value highlight">до 5 шт.</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Протоколы</span>
                     <span class="info-value">AmneziaWG, IKEv2</span>
                 </div>
-                <p style="margin-top: 16px;">Каждому устройству нужен свой конфиг. Управляй ими через бота.</p>
-                <button class="btn-action" onclick="goToBot('my_devices')">📱 Управление в боте</button>
+                <div class="divider"></div>
+                <p><strong>💡 Как это работает:</strong></p>
+                <p>• Каждому устройству — свой конфиг</p>
+                <p>• Можно добавлять и удалять устройства</p>
+                <p>• Все устройства работают одновременно</p>
+                <div class="divider"></div>
+                <p><strong>📱 Примеры устройств:</strong></p>
+                <p>Телефон, планшет, ноутбук, ПК, роутер</p>
+                <button class="btn-action" onclick="goToBot('my_devices')" style="margin-top: 16px;">📱 Управление устройствами</button>
             </div>
         </div>
 
@@ -512,19 +798,30 @@
                 <div class="panel-title">Статус подписки</div>
             </div>
             <div class="panel-content">
-                <div class="info-row">
-                    <span class="info-label">Статус</span>
-                    <span class="status-badge status-active">🟢 Активен</span>
+                <div class="status-card">
+                    <div class="status-icon">🚀</div>
+                    <div class="status-info">
+                        <div class="status-label">Сервер</div>
+                        <div class="status-value">🟢 Онлайн</div>
+                    </div>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">Тариф</span>
-                    <span class="info-value">Космонавт</span>
+                <div class="status-card">
+                    <div class="status-icon">🛡️</div>
+                    <div class="status-info">
+                        <div class="status-label">Защита</div>
+                        <div class="status-value">100%</div>
+                    </div>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">Защита</span>
-                    <span class="info-value">🛡️ 100%</span>
+                <div class="status-card">
+                    <div class="status-icon">🌍</div>
+                    <div class="status-info">
+                        <div class="status-label">Локация</div>
+                        <div class="status-value">Казахстан</div>
+                    </div>
                 </div>
-                <button class="btn-action" onclick="goToBot('status')">📊 Подробнее в боте</button>
+                <div class="divider"></div>
+                <p><strong>ℹ️ Для подробного статуса</strong> (дата окончания, кол-во устройств) — проверь в боте.</p>
+                <button class="btn-action" onclick="goToBot('status')" style="margin-top: 12px;">📊 Мой статус</button>
             </div>
         </div>
 
@@ -534,23 +831,32 @@
                 <div class="panel-title">Тарифы</div>
             </div>
             <div class="panel-content">
-                <div class="info-row">
-                    <span class="info-label">1 месяц</span>
-                    <span class="info-value highlight">100 ₽</span>
+                <div class="plan-card">
+                    <div class="plan-duration">1 месяц</div>
+                    <div class="plan-price">100 ₽</div>
+                    <div class="plan-per-month">100 ₽/мес</div>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">3 месяца</span>
-                    <span class="info-value highlight">250 ₽ <small>(-17%)</small></span>
+                <div class="plan-card popular">
+                    <div class="plan-badge">Популярный</div>
+                    <div class="plan-duration">3 месяца</div>
+                    <div class="plan-price">250 ₽</div>
+                    <div class="plan-per-month">83 ₽/мес</div>
+                    <div class="plan-save">Экономия 17%</div>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">6 месяцев</span>
-                    <span class="info-value highlight">450 ₽ <small>(-25%)</small></span>
+                <div class="plan-card">
+                    <div class="plan-duration">6 месяцев</div>
+                    <div class="plan-price">450 ₽</div>
+                    <div class="plan-per-month">75 ₽/мес</div>
+                    <div class="plan-save">Экономия 25%</div>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">12 месяцев</span>
-                    <span class="info-value highlight">800 ₽ <small>(-33%)</small></span>
+                <div class="plan-card best">
+                    <div class="plan-badge">Лучшая цена</div>
+                    <div class="plan-duration">12 месяцев</div>
+                    <div class="plan-price">800 ₽</div>
+                    <div class="plan-per-month">67 ₽/мес</div>
+                    <div class="plan-save">Экономия 33%</div>
                 </div>
-                <button class="btn-action" onclick="goToBot('buy_plans')">💳 Оплатить в боте</button>
+                <button class="btn-action" onclick="goToBot('buy_plans')" style="margin-top: 16px;">💳 Оплатить</button>
             </div>
         </div>
 
@@ -560,13 +866,44 @@
                 <div class="panel-title">Помощь</div>
             </div>
             <div class="panel-content">
-                <p><strong>Как подключить VPN?</strong></p>
-                <p>1. Нажми "Получить VPN" в боте</p>
-                <p>2. Выбери протокол (рекомендуем AmneziaWG)</p>
-                <p>3. Скачай конфиг и импортируй в приложение</p>
-                <p style="margin-top: 12px;"><strong>Нужна помощь?</strong></p>
-                <button class="btn-action" onclick="goToBot('help')">📚 FAQ в боте</button>
-                <button class="btn-action btn-secondary" onclick="showPanel('support')" style="margin-top: 8px;">💬 Написать в поддержку</button>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">❓ Как подключить VPN?</div>
+                    <div class="faq-answer">
+                        1. Нажми "Получить VPN" в боте<br>
+                        2. Выбери протокол (рекомендуем AmneziaWG)<br>
+                        3. Скачай приложение<br>
+                        4. Импортируй конфиг и подключайся!
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">❓ Какой протокол выбрать?</div>
+                    <div class="faq-answer">
+                        <strong>AmneziaWG</strong> — лучший выбор. Обходит блокировки, быстрый и стабильный.<br><br>
+                        <strong>IKEv2</strong> — если не хочешь устанавливать приложения.
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">❓ VPN не работает, что делать?</div>
+                    <div class="faq-answer">
+                        1. Проверь интернет-соединение<br>
+                        2. Переподключись к VPN<br>
+                        3. Попробуй другой протокол<br>
+                        4. Напиши в поддержку
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">❓ Как продлить подписку?</div>
+                    <div class="faq-answer">
+                        Нажми "Тарифы" и выбери срок. Оплата автоматически продлит доступ.
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">❓ Сколько устройств можно подключить?</div>
+                    <div class="faq-answer">
+                        До 5 устройств одновременно. Каждому нужен свой конфиг.
+                    </div>
+                </div>
+                <button class="btn-action btn-secondary" onclick="showPanel('support')" style="margin-top: 16px;">💬 Написать в поддержку</button>
             </div>
         </div>
 
@@ -576,10 +913,28 @@
                 <div class="panel-title">Поддержка</div>
             </div>
             <div class="panel-content">
-                <p>Мы на связи! Напиши нам в боте, и мы поможем.</p>
-                <p><strong>Время ответа:</strong> обычно до 1 часа</p>
-                <p><strong>Работаем:</strong> 24/7 🌙</p>
-                <button class="btn-action" onclick="goToBot('support')">✉️ Написать в поддержку</button>
+                <div class="support-card">
+                    <div class="support-icon">💬</div>
+                    <div class="support-info">
+                        <div class="support-title">Telegram бот</div>
+                        <div class="support-desc">Напиши сообщение прямо в бота</div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="info-row">
+                    <span class="info-label">⏱ Время ответа</span>
+                    <span class="info-value">до 1 часа</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">🕐 Работаем</span>
+                    <span class="info-value">24/7</span>
+                </div>
+                <div class="divider"></div>
+                <p><strong>📝 Что указать в сообщении:</strong></p>
+                <p>• Описание проблемы</p>
+                <p>• Устройство и ОС</p>
+                <p>• Скриншот (если есть)</p>
+                <button class="btn-action" onclick="goToBot('support')" style="margin-top: 16px;">✉️ Написать в поддержку</button>
             </div>
         </div>
 
@@ -690,8 +1045,39 @@
                 currentPanel = panelId;
                 
                 // Подсветить кнопку
-                event.currentTarget.classList.add('active');
+                if (event && event.currentTarget) {
+                    event.currentTarget.classList.add('active');
+                }
             }
+        }
+
+        // Показать подпанель (для вложенных панелей)
+        function showSubPanel(panelId) {
+            if (tg?.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('light');
+            }
+
+            // Скрыть все панели
+            document.querySelectorAll('.content-panel').forEach(p => {
+                p.classList.remove('visible');
+            });
+
+            const panel = document.getElementById('panel-' + panelId);
+            if (panel) {
+                panel.classList.add('visible');
+                currentPanel = panelId;
+                setTimeout(() => {
+                    panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        }
+
+        // Переключить FAQ
+        function toggleFaq(element) {
+            if (tg?.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('light');
+            }
+            element.classList.toggle('open');
         }
 
         // Показать toast
