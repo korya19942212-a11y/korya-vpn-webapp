@@ -3,23 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#0f0f23">
-    <title>KoryaVPN — Личный кабинет</title>
+    <title>KoryaVPN — Космическая станция</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0f0f23;
-            --bg-card: #1a1a2e;
-            --bg-card-hover: #252542;
-            --accent-green: #00ff88;
-            --accent-yellow: #ffd93d;
-            --accent-pink: #ff6b9d;
-            --accent-blue: #6bcfff;
-            --accent-orange: #ff9f43;
-            --text-white: #ffffff;
-            --text-gray: #a0a0b0;
+            --space-dark: #0a0a1a;
+            --space-purple: #1a0a2e;
+            --nebula-pink: #ff00ff;
+            --nebula-blue: #00d4ff;
+            --star-gold: #ffd700;
+            --cosmic-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f953c6 100%);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
         }
 
         * {
@@ -29,196 +25,289 @@
         }
 
         body {
-            font-family: 'Nunito', 'Comic Neue', sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-white);
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--space-dark);
             min-height: 100vh;
-            padding: 16px;
-            padding-bottom: 120px;
+            padding: 20px;
+            padding-bottom: 100px;
+            color: var(--text-primary);
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* Floating memes background */
-        .floating-memes {
+        /* Звёздный фон */
+        .stars {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
-            overflow: hidden;
             z-index: 0;
+            overflow: hidden;
         }
 
-        .floating-meme {
+        .star {
             position: absolute;
-            font-size: 30px;
-            opacity: 0.15;
-            animation: float 20s infinite linear;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Плавающие космические объекты */
+        .space-objects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .space-object {
+            position: absolute;
+            font-size: 24px;
+            animation: float var(--duration) ease-in-out infinite;
+            opacity: 0.6;
         }
 
         @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); }
-            100% { transform: translateY(-100px) rotate(360deg); }
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+            }
+            25% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+            50% { 
+                transform: translateY(-10px) rotate(-5deg); 
+            }
+            75% {
+                transform: translateY(-30px) rotate(5deg);
+            }
+        }
+
+        /* Метеоритный поток */
+        .meteor {
+            position: fixed;
+            width: 2px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, var(--nebula-blue), transparent);
+            animation: meteor 3s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes meteor {
+            0% {
+                opacity: 0;
+                transform: translateX(0) translateY(-100px) rotate(-45deg);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(300px) translateY(calc(100vh + 100px)) rotate(-45deg);
+            }
         }
 
         .container {
+            position: relative;
+            z-index: 10;
             max-width: 420px;
             margin: 0 auto;
+        }
+
+        /* Заголовок */
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-size: 60px;
+            margin-bottom: 8px;
+            animation: rocketShake 2s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes rocketShake {
+            0%, 100% { transform: translateY(0) rotate(-10deg); }
+            25% { transform: translateY(-5px) rotate(-15deg); }
+            50% { transform: translateY(-2px) rotate(-10deg); }
+            75% { transform: translateY(-8px) rotate(-5deg); }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            font-weight: 900;
+            background: var(--cosmic-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .tagline {
+            color: var(--nebula-blue);
+            font-size: 14px;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Карточка приветствия */
+        .greeting-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out 0.2s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .greeting-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .astronaut {
+            font-size: 48px;
+            margin-bottom: 12px;
+            display: inline-block;
+            animation: astronautFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes astronautFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .user-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--star-gold);
+            margin-bottom: 4px;
             position: relative;
             z-index: 1;
         }
 
-        /* Header with wobble */
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-            animation: wobble 3s ease-in-out infinite;
-        }
-
-        @keyframes wobble {
-            0%, 100% { transform: rotate(-1deg); }
-            50% { transform: rotate(1deg); }
-        }
-
-        .logo {
-            font-size: 48px;
-            margin-bottom: 8px;
-            display: inline-block;
-            animation: bounce 1s ease infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .header h1 {
-            font-size: 28px;
-            font-weight: 900;
-            background: linear-gradient(45deg, var(--accent-green), var(--accent-blue), var(--accent-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .header .subtitle {
-            color: var(--accent-yellow);
+        .user-rank {
+            color: var(--text-secondary);
             font-size: 14px;
-            font-weight: 700;
-        }
-
-        /* Greeting card */
-        .greeting {
-            background: linear-gradient(135deg, var(--bg-card), #2a2a4a);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 16px;
-            text-align: center;
-            border: 2px solid var(--accent-green);
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
             position: relative;
-            overflow: hidden;
+            z-index: 1;
         }
 
-        .greeting::before {
-            content: '✨';
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 20px;
-            animation: sparkle 1.5s ease-in-out infinite;
-        }
-
-        @keyframes sparkle {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
-        }
-
-        .greeting .meme-face {
-            font-size: 50px;
-            margin-bottom: 8px;
-        }
-
-        .greeting .name {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--accent-yellow);
-        }
-
-        .greeting .meme-text {
-            font-size: 13px;
-            color: var(--text-gray);
-            margin-top: 4px;
-            font-style: italic;
-        }
-
-        /* Status card */
+        /* Статус */
         .status-card {
-            background: linear-gradient(135deg, #1e3a5f, #0d2137);
-            border-radius: 20px;
+            background: linear-gradient(180deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 16px;
             padding: 20px;
-            margin-bottom: 16px;
-            border: 2px solid var(--accent-blue);
-            position: relative;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: fadeIn 0.6s ease-out 0.3s both;
         }
 
-        .status-card .badge {
-            position: absolute;
-            top: -10px;
-            right: 20px;
-            background: var(--accent-green);
-            color: #000;
-            padding: 4px 12px;
+        .orbit-badge {
+            display: inline-block;
+            background: var(--cosmic-gradient);
+            padding: 6px 16px;
             border-radius: 20px;
+            font-family: 'Orbitron', sans-serif;
             font-size: 12px;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
             animation: pulse 2s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.5); }
+            50% { box-shadow: 0 0 20px 5px rgba(102, 126, 234, 0.3); }
         }
 
-        .status-card .title {
+        .status-title {
             font-size: 14px;
-            color: var(--text-gray);
-            margin-bottom: 4px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
         }
 
-        .status-card .value {
-            font-size: 24px;
-            font-weight: 900;
-            color: var(--accent-blue);
+        .status-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--nebula-blue);
         }
 
-        .status-card .meme-status {
-            margin-top: 12px;
-            padding: 10px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            font-size: 13px;
-            text-align: center;
+        .status-hint {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 8px;
         }
 
-        /* Action buttons grid */
+        /* Кнопки действий */
         .actions {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            animation: fadeIn 0.6s ease-out 0.4s both;
         }
 
         .action-btn {
-            background: var(--bg-card);
-            border: 2px solid transparent;
+            background: linear-gradient(135deg, rgba(26, 10, 46, 0.8), rgba(10, 10, 26, 0.8));
+            border: 1px solid rgba(102, 126, 234, 0.3);
             border-radius: 16px;
-            padding: 20px 12px;
+            padding: 16px 12px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            color: var(--text-white);
             position: relative;
             overflow: hidden;
         }
@@ -231,7 +320,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s;
+            transition: left 0.5s ease;
         }
 
         .action-btn:hover::before {
@@ -239,239 +328,251 @@
         }
 
         .action-btn:hover {
-            transform: translateY(-4px) rotate(1deg);
-            border-color: var(--accent-green);
-            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
+            border-color: var(--nebula-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
         }
 
         .action-btn:active {
-            transform: scale(0.95);
+            transform: translateY(0) scale(0.98);
         }
 
-        .action-btn .icon {
-            font-size: 36px;
+        .action-icon {
+            font-size: 28px;
             margin-bottom: 8px;
-            display: block;
         }
 
-        .action-btn .label {
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        .action-btn .meme-hint {
-            font-size: 10px;
-            color: var(--text-gray);
-            margin-top: 4px;
-        }
-
-        /* Special button styles */
-        .action-btn.vpn { border-color: var(--accent-green); }
-        .action-btn.vpn:hover { background: rgba(0, 255, 136, 0.1); }
-        
-        .action-btn.devices { border-color: var(--accent-blue); }
-        .action-btn.devices:hover { background: rgba(107, 207, 255, 0.1); }
-        
-        .action-btn.status { border-color: var(--accent-yellow); }
-        .action-btn.status:hover { background: rgba(255, 217, 61, 0.1); }
-        
-        .action-btn.buy { border-color: var(--accent-orange); }
-        .action-btn.buy:hover { background: rgba(255, 159, 67, 0.1); }
-        
-        .action-btn.help { border-color: var(--accent-pink); }
-        .action-btn.help:hover { background: rgba(255, 107, 157, 0.1); }
-        
-        .action-btn.support { border-color: #a855f7; }
-        .action-btn.support:hover { background: rgba(168, 85, 247, 0.1); }
-
-        /* Meme quote section */
-        .meme-quote {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 20px;
-            text-align: center;
-            border-left: 4px solid var(--accent-yellow);
-        }
-
-        .meme-quote .quote {
-            font-size: 16px;
-            font-style: italic;
-            color: var(--accent-yellow);
-        }
-
-        .meme-quote .author {
+        .action-label {
+            font-family: 'Orbitron', sans-serif;
             font-size: 12px;
-            color: var(--text-gray);
-            margin-top: 8px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        /* Fun facts */
-        .fun-fact {
-            background: linear-gradient(135deg, #2d1b4e, #1a1a2e);
-            border-radius: 16px;
+        .action-hint {
+            font-size: 10px;
+            color: var(--nebula-blue);
+            margin-top: 4px;
+            opacity: 0.8;
+        }
+
+        /* Космическая цитата */
+        .space-quote {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 3px solid var(--star-gold);
+            border-radius: 0 12px 12px 0;
             padding: 16px;
             margin-bottom: 20px;
-            border: 2px dashed var(--accent-pink);
+            animation: fadeIn 0.6s ease-out 0.5s both;
         }
 
-        .fun-fact .emoji {
-            font-size: 24px;
-            margin-right: 8px;
-        }
-
-        .fun-fact .text {
+        .quote-text {
+            font-style: italic;
+            color: var(--text-primary);
             font-size: 14px;
-            color: var(--text-white);
+            margin-bottom: 8px;
         }
 
-        /* Main button */
+        .quote-author {
+            color: var(--star-gold);
+            font-size: 12px;
+        }
+
+        /* Космический факт */
+        .space-fact {
+            text-align: center;
+            padding: 16px;
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(0, 212, 255, 0.1));
+            border-radius: 12px;
+            margin-bottom: 24px;
+            animation: fadeIn 0.6s ease-out 0.6s both;
+        }
+
+        .fact-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .fact-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Главная кнопка */
         .main-btn {
             width: 100%;
-            background: linear-gradient(135deg, var(--accent-green), #00cc6a);
-            color: #000;
-            border: none;
             padding: 18px;
+            background: var(--cosmic-gradient);
+            border: none;
             border-radius: 16px;
-            font-size: 18px;
-            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out 0.7s both;
+        }
+
+        .main-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .main-btn:hover::before {
+            left: 100%;
         }
 
         .main-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 30px rgba(0, 255, 136, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
         }
 
         .main-btn:active {
-            transform: scale(0.98);
+            transform: translateY(0) scale(0.98);
         }
 
-        /* Footer */
+        /* Футер */
         .footer {
             text-align: center;
             margin-top: 24px;
-            color: var(--text-gray);
+            animation: fadeIn 0.6s ease-out 0.8s both;
+        }
+
+        .footer p {
             font-size: 12px;
+            color: var(--text-secondary);
         }
 
-        .footer .made-with {
-            margin-top: 8px;
+        .footer .highlight {
+            color: var(--nebula-pink);
         }
 
-        /* Animations */
-        .animate-in {
-            animation: slideUp 0.5s ease-out forwards;
-            opacity: 0;
+        /* Планета внизу */
+        .planet {
+            position: fixed;
+            bottom: -100px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at 30% 30%, #764ba2, #1a0a2e);
+            border-radius: 50%;
+            box-shadow: 
+                inset -20px -20px 40px rgba(0,0,0,0.5),
+                0 0 60px rgba(118, 75, 162, 0.3);
+            z-index: 0;
+            animation: planetRotate 20s linear infinite;
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .planet::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -30%;
+            width: 160%;
+            height: 20px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateY(-50%) rotate(-15deg);
+            border-radius: 50%;
         }
 
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-        .delay-5 { animation-delay: 0.5s; }
-
-        /* Rainbow text for special elements */
-        .rainbow {
-            background: linear-gradient(90deg, #ff0000, #ff8800, #ffff00, #00ff00, #00ffff, #0088ff, #ff00ff);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: rainbow 3s ease infinite;
-        }
-
-        @keyframes rainbow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes planetRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <!-- Floating background memes -->
-    <div class="floating-memes" id="floatingMemes"></div>
+    <div class="stars" id="stars"></div>
+    <div class="space-objects" id="spaceObjects"></div>
+    <div class="meteor" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="meteor" style="left: 50%; animation-delay: 1.5s;"></div>
+    <div class="meteor" style="left: 80%; animation-delay: 3s;"></div>
+    <div class="planet"></div>
 
     <div class="container">
-        <div class="header animate-in">
-            <div class="logo">🐸</div>
+        <header class="header">
+            <div class="logo">🚀</div>
             <h1>KoryaVPN</h1>
-            <p class="subtitle">vpn go brrrr 🚀</p>
+            <p class="tagline">Выход на орбиту</p>
+        </header>
+
+        <div class="greeting-card">
+            <div class="astronaut">👨‍🚀</div>
+            <div class="user-name" id="userName">Космонавт</div>
+            <div class="user-rank" id="userRank">Исследователь галактики</div>
         </div>
 
-        <div class="greeting animate-in delay-1" id="greeting">
-            <div class="meme-face" id="memeFace">🐕</div>
-            <div class="name" id="userName">Wow, such user!</div>
-            <div class="meme-text" id="memeGreeting">Much secure, very private</div>
+        <div class="status-card">
+            <div class="orbit-badge">🛸 На орбите</div>
+            <div class="status-title">Твой статус</div>
+            <div class="status-value">Капитан звездолёта</div>
+            <div class="status-hint">🛡️ Щиты активированы на 100%</div>
         </div>
 
-        <div class="status-card animate-in delay-2">
-            <div class="badge">STONKS 📈</div>
-            <div class="title">Твой статус</div>
-            <div class="value">VIP Мемолорд</div>
-            <div class="meme-status">
-                🛡️ FBI уже не следит за тобой
-            </div>
-        </div>
-
-        <div class="actions animate-in delay-3">
-            <button class="action-btn vpn" onclick="sendAction('get_vpn')">
-                <span class="icon">🔐</span>
-                <span class="label">Получить VPN</span>
-                <span class="meme-hint">время хакермана</span>
+        <div class="actions">
+            <button class="action-btn" onclick="sendAction('get_vpn')">
+                <div class="action-icon">🔑</div>
+                <div class="action-label">Получить VPN</div>
+                <div class="action-hint">запуск двигателей</div>
             </button>
-            <button class="action-btn devices" onclick="sendAction('my_devices')">
-                <span class="icon">📱</span>
-                <span class="label">Мои девайсы</span>
-                <span class="meme-hint">all my homies</span>
+            <button class="action-btn" onclick="sendAction('my_devices')">
+                <div class="action-icon">🛰️</div>
+                <div class="action-label">Мои девайсы</div>
+                <div class="action-hint">спутники</div>
             </button>
-            <button class="action-btn status" onclick="sendAction('status')">
-                <span class="icon">📊</span>
-                <span class="label">Статус</span>
-                <span class="meme-hint">stonks or not?</span>
+            <button class="action-btn" onclick="sendAction('status')">
+                <div class="action-icon">📡</div>
+                <div class="action-label">Статус</div>
+                <div class="action-hint">телеметрия</div>
             </button>
-            <button class="action-btn buy" onclick="sendAction('buy')">
-                <span class="icon">💸</span>
-                <span class="label">Купить</span>
-                <span class="meme-hint">shut up & take my money</span>
+            <button class="action-btn" onclick="sendAction('buy')">
+                <div class="action-icon">💫</div>
+                <div class="action-label">Купить</div>
+                <div class="action-hint">апгрейд корабля</div>
             </button>
-            <button class="action-btn help" onclick="sendAction('help')">
-                <span class="icon">🆘</span>
-                <span class="label">Помощь</span>
-                <span class="meme-hint">this is fine 🔥</span>
+            <button class="action-btn" onclick="sendAction('help')">
+                <div class="action-icon">🌍</div>
+                <div class="action-label">Помощь</div>
+                <div class="action-hint">центр управления</div>
             </button>
-            <button class="action-btn support" onclick="sendAction('support')">
-                <span class="icon">💬</span>
-                <span class="label">Поддержка</span>
-                <span class="meme-hint">we gotchu fam</span>
+            <button class="action-btn" onclick="sendAction('support')">
+                <div class="action-icon">👽</div>
+                <div class="action-label">Поддержка</div>
+                <div class="action-hint">связь с базой</div>
             </button>
         </div>
 
-        <div class="meme-quote animate-in delay-4">
-            <div class="quote" id="randomQuote">"С VPN даже мама не узнает что ты гуглил"</div>
-            <div class="author">— Древняя мудрость интернета</div>
+        <div class="space-quote">
+            <div class="quote-text" id="quoteText">"Один маленький клик для человека — гигантский скачок для приватности"</div>
+            <div class="quote-author" id="quoteAuthor">— Нил Армстронг (наверное)</div>
         </div>
 
-        <div class="fun-fact animate-in delay-4">
-            <span class="emoji">🤓</span>
-            <span class="text" id="funFact">Факт: 100% хакеров используют VPN. Совпадение? Не думаю.</span>
+        <div class="space-fact">
+            <div class="fact-icon" id="factIcon">🌌</div>
+            <div class="fact-text" id="factText">Свет от ближайшей звезды достигает Земли за 4 года. Наш VPN работает быстрее.</div>
         </div>
 
-        <button class="main-btn animate-in delay-5" onclick="closeApp()">
-            🚀 Вернуться в бота
+        <button class="main-btn" onclick="closeApp()">
+            🚀 Вернуться на базу
         </button>
 
-        <div class="footer animate-in delay-5">
+        <footer class="footer">
             <p>KoryaVPN © 2024</p>
-            <p class="made-with">Made with 💚 and memes</p>
-        </div>
+            <p>Made with <span class="highlight">♥</span> in deep space</p>
+        </footer>
     </div>
 
     <script>
@@ -479,83 +580,93 @@
         tg.ready();
         tg.expand();
 
-        // Meme faces for greeting
-        const memeFaces = ['🐸', '🐕', '😎', '🦍', '🐱', '👽', '🤖', '💀', '🎃', '🦊'];
-        const memeGreetings = [
-            'Much secure, very private',
-            'Hackerman mode: ON',
-            'FBI left the chat',
-            'Incognito 100',
-            'Твой провайдер в шоке',
-            'Анонимность goes brrrr',
-            'VPN gang rise up',
-            'Security level: over 9000',
-            'Мама не узнает',
-            'Big brain time'
+        // Персонализация
+        const ranks = [
+            "Исследователь галактики",
+            "Повелитель астероидов", 
+            "Космический странник",
+            "Хранитель чёрных дыр",
+            "Звёздный навигатор",
+            "Межпланетный агент"
         ];
 
         const quotes = [
-            '"С VPN даже мама не узнает что ты гуглил"',
-            '"Я использую VPN не потому что мне есть что скрывать, а потому что это круто"',
-            '"VPN — это как плащ-невидимка, только для интернета"',
-            '"Без VPN — это как выйти на улицу голым"',
-            '"Провайдер: 👀 | Я с VPN: 🕶️"',
-            '"FBI хочет знать твою локацию. VPN: нет."',
-            '"Хакеры ненавидят этот простой трюк!"'
+            { text: '"Один маленький клик для человека — гигантский скачок для приватности"', author: '— Нил Армстронг (наверное)' },
+            { text: '"В космосе никто не услышит твой IP"', author: '— Ридли Скотт' },
+            { text: '"Бесконечность — не предел, в отличие от твоего трафика без VPN"', author: '— Базз Лайтер' },
+            { text: '"Мы выбираем VPN не потому, что это легко, а потому что это умно"', author: '— Джон Кеннеди (адаптировано)' },
+            { text: '"Хьюстон, у нас нет проблем — мы используем VPN"', author: '— Аполлон 13 (альт. версия)' }
         ];
 
-        const funFacts = [
-            '🤓 Факт: 100% хакеров используют VPN. Совпадение? Не думаю.',
-            '🌍 Факт: С VPN ты можешь быть в 50 странах одновременно!',
-            '🔒 Факт: VPN шифрует трафик так, что даже твой кот не разберётся.',
-            '⚡ Факт: Наш VPN быстрее, чем твой бывший ушёл из отношений.',
-            '🦸 Факт: Супергерои носят плащи. Ты используешь VPN. Это одно и то же.',
-            '📡 Факт: Без VPN твой провайдер знает о тебе больше, чем твоя мама.'
+        const facts = [
+            { icon: '🌌', text: 'Свет от ближайшей звезды достигает Земли за 4 года. Наш VPN работает быстрее.' },
+            { icon: '🪐', text: 'На Сатурне идут алмазные дожди. У нас есть кое-что ценнее — твоя приватность.' },
+            { icon: '☄️', text: 'Каждый день на Землю падает 48 тонн космической пыли. И ни грамма твоих данных!' },
+            { icon: '🌙', text: 'На Луне нет интернета. Зато там и нет слежки. Мы даём тебе лучшее из двух миров.' },
+            { icon: '⭐', text: 'Во Вселенной больше звёзд, чем песчинок на Земле. Но только одна защищает твои данные — KoryaVPN.' },
+            { icon: '🔭', text: 'Телескоп Хаббл видит галактики за 13 млрд световых лет. Твой провайдер больше ничего не видит.' }
         ];
 
-        // Set random meme elements
-        document.getElementById('memeFace').textContent = memeFaces[Math.floor(Math.random() * memeFaces.length)];
-        document.getElementById('memeGreeting').textContent = memeGreetings[Math.floor(Math.random() * memeGreetings.length)];
-        document.getElementById('randomQuote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
-        document.getElementById('funFact').textContent = funFacts[Math.floor(Math.random() * funFacts.length)];
+        const spaceEmojis = ['🌟', '✨', '💫', '⭐', '🌙', '☄️', '🛸', '🌍', '🪐', '🌌'];
 
-        // Set user name
-        const user = tg.initDataUnsafe?.user;
-        if (user) {
-            const name = user.first_name || 'Анон';
-            const greetings = [
-                `Йоу, ${name}! 👋`,
-                `Легенда вернулась: ${name}`,
-                `${name} in da house!`,
-                `Wow, such ${name}!`,
-                `Чел, ${name}, ты крут!`
-            ];
-            document.getElementById('userName').textContent = greetings[Math.floor(Math.random() * greetings.length)];
+        // Установка имени пользователя
+        const userName = tg.initDataUnsafe?.user?.first_name || 'Космонавт';
+        document.getElementById('userName').textContent = userName;
+        document.getElementById('userRank').textContent = ranks[Math.floor(Math.random() * ranks.length)];
+
+        // Случайная цитата
+        const quote = quotes[Math.floor(Math.random() * quotes.length)];
+        document.getElementById('quoteText').textContent = quote.text;
+        document.getElementById('quoteAuthor').textContent = quote.author;
+
+        // Случайный факт
+        const fact = facts[Math.floor(Math.random() * facts.length)];
+        document.getElementById('factIcon').textContent = fact.icon;
+        document.getElementById('factText').textContent = fact.text;
+
+        // Генерация звёзд
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
         }
 
-        // Create floating memes
-        const floatingEmojis = ['🐸', '🚀', '💎', '🔥', '✨', '🎮', '🎯', '💀', '👾', '🦄', '🌈', '⚡'];
-        const container = document.getElementById('floatingMemes');
-        
-        for (let i = 0; i < 15; i++) {
-            const meme = document.createElement('div');
-            meme.className = 'floating-meme';
-            meme.textContent = floatingEmojis[Math.floor(Math.random() * floatingEmojis.length)];
-            meme.style.left = Math.random() * 100 + '%';
-            meme.style.animationDelay = Math.random() * 20 + 's';
-            meme.style.animationDuration = (15 + Math.random() * 15) + 's';
-            container.appendChild(meme);
+        // Генерация космических объектов
+        function createSpaceObjects() {
+            const container = document.getElementById('spaceObjects');
+            for (let i = 0; i < 8; i++) {
+                const obj = document.createElement('div');
+                obj.className = 'space-object';
+                obj.textContent = spaceEmojis[Math.floor(Math.random() * spaceEmojis.length)];
+                obj.style.left = Math.random() * 100 + '%';
+                obj.style.top = Math.random() * 100 + '%';
+                obj.style.setProperty('--duration', (Math.random() * 5 + 4) + 's');
+                obj.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(obj);
+            }
         }
 
-        // Actions
+        createStars();
+        createSpaceObjects();
+
+        // Отправка действия в бота
         function sendAction(action) {
             if (tg.HapticFeedback) {
                 tg.HapticFeedback.impactOccurred('medium');
             }
             tg.sendData(JSON.stringify({ action: action }));
-            setTimeout(() => tg.close(), 150);
         }
 
+        // Закрытие приложения
         function closeApp() {
             if (tg.HapticFeedback) {
                 tg.HapticFeedback.impactOccurred('heavy');
