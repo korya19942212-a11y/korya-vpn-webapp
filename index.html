@@ -576,9 +576,21 @@
     </div>
 
     <script>
-        const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
+        // Проверяем, запущено ли в Telegram
+        const tg = window.Telegram?.WebApp;
+        const isInTelegram = tg && tg.initData && tg.initData.length > 0;
+        
+        if (tg) {
+            tg.ready();
+            tg.expand();
+            
+            // Настройка MainButton
+            tg.MainButton.text = "🚀 ЗАКРЫТЬ";
+            tg.MainButton.color = "#667eea";
+            tg.MainButton.textColor = "#ffffff";
+            tg.MainButton.onClick(closeApp);
+            tg.MainButton.show();
+        }
 
         // Персонализация
         const ranks = [
@@ -610,7 +622,7 @@
         const spaceEmojis = ['🌟', '✨', '💫', '⭐', '🌙', '☄️', '🛸', '🌍', '🪐', '🌌'];
 
         // Установка имени пользователя
-        const userName = tg.initDataUnsafe?.user?.first_name || 'Космонавт';
+        const userName = tg?.initDataUnsafe?.user?.first_name || 'Космонавт';
         document.getElementById('userName').textContent = userName;
         document.getElementById('userRank').textContent = ranks[Math.floor(Math.random() * ranks.length)];
 
@@ -658,20 +670,99 @@
         createStars();
         createSpaceObjects();
 
+        // Названия действий для уведомлений
+        const actionNames = {
+            'get_vpn': '🔑 Получить VPN',
+            'my_devices': '🛰️ Мои устройства',
+            'status': '📡 Статус',
+            'buy': '💫 Купить доступ',
+            'help': '🌍 Помощь',
+            'support': '👽 Поддержка'
+        };
+
+        // Показать уведомление
+        function showNotification(message) {
+            // Создаём элемент уведомления
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white;
+                padding: 12px 24px;
+                border-radius: 12px;
+                font-family: 'Orbitron', sans-serif;
+                font-size: 14px;
+                z-index: 9999;
+                box-shadow: 0 4px 20px rgba(102, 126, 234, 0.5);
+                animation: slideIn 0.3s ease-out;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Удаляем через 2 секунды
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.3s ease-out forwards';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
+        // Добавляем стили для анимаций уведомлений
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+                to { opacity: 1; transform: translateX(-50%) translateY(0); }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
         // Отправка действия в бота
         function sendAction(action) {
-            if (tg.HapticFeedback) {
+            // Визуальная обратная связь
+            if (tg?.HapticFeedback) {
                 tg.HapticFeedback.impactOccurred('medium');
             }
-            tg.sendData(JSON.stringify({ action: action }));
+            
+            const actionName = actionNames[action] || action;
+            
+            if (isInTelegram) {
+                // В Telegram - отправляем данные и закрываем
+                showNotification(`${actionName} — переход в бота...`);
+                setTimeout(() => {
+                    tg.sendData(JSON.stringify({ action: action }));
+                }, 500);
+            } else {
+                // Вне Telegram - показываем сообщение
+                showNotification(`${actionName} — откройте в Telegram!`);
+                console.log('Action:', action);
+            }
         }
 
         // Закрытие приложения
         function closeApp() {
-            if (tg.HapticFeedback) {
+            if (tg?.HapticFeedback) {
                 tg.HapticFeedback.impactOccurred('heavy');
             }
-            tg.close();
+            
+            if (isInTelegram) {
+                tg.close();
+            } else {
+                showNotification('🚀 Откройте в Telegram для полной работы!');
+            }
+        }
+        
+        // Показываем предупреждение если открыто вне Telegram
+        if (!isInTelegram) {
+            setTimeout(() => {
+                showNotification('⚠️ Откройте через Telegram бота!');
+            }, 1000);
         }
     </script>
 </body>
