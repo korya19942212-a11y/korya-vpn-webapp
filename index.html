@@ -79,45 +79,10 @@
         }
 
         @keyframes float {
-            0%, 100% { 
-                transform: translateY(0) rotate(0deg); 
-            }
-            25% {
-                transform: translateY(-20px) rotate(10deg);
-            }
-            50% { 
-                transform: translateY(-10px) rotate(-5deg); 
-            }
-            75% {
-                transform: translateY(-30px) rotate(5deg);
-            }
-        }
-
-        /* Метеоритный поток */
-        .meteor {
-            position: fixed;
-            width: 2px;
-            height: 80px;
-            background: linear-gradient(to bottom, transparent, var(--nebula-blue), transparent);
-            animation: meteor 3s linear infinite;
-            opacity: 0;
-        }
-
-        @keyframes meteor {
-            0% {
-                opacity: 0;
-                transform: translateX(0) translateY(-100px) rotate(-45deg);
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: translateX(300px) translateY(calc(100vh + 100px)) rotate(-45deg);
-            }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(10deg); }
+            50% { transform: translateY(-10px) rotate(-5deg); }
+            75% { transform: translateY(-30px) rotate(5deg); }
         }
 
         .container {
@@ -135,14 +100,8 @@
         }
 
         @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .logo {
@@ -187,30 +146,7 @@
             padding: 24px;
             margin-bottom: 20px;
             backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-            animation: fadeIn 0.6s ease-out 0.2s both;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .greeting-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: rotate 10s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            text-align: center;
         }
 
         .astronaut {
@@ -231,64 +167,11 @@
             font-weight: 700;
             color: var(--star-gold);
             margin-bottom: 4px;
-            position: relative;
-            z-index: 1;
         }
 
         .user-rank {
             color: var(--text-secondary);
             font-size: 14px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Статус */
-        .status-card {
-            background: linear-gradient(180deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 255, 0.1));
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            text-align: center;
-            animation: fadeIn 0.6s ease-out 0.3s both;
-        }
-
-        .orbit-badge {
-            display: inline-block;
-            background: var(--cosmic-gradient);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.5); }
-            50% { box-shadow: 0 0 20px 5px rgba(102, 126, 234, 0.3); }
-        }
-
-        .status-title {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
-
-        .status-value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--nebula-blue);
-        }
-
-        .status-hint {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-top: 8px;
         }
 
         /* Кнопки действий */
@@ -297,7 +180,6 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             margin-bottom: 24px;
-            animation: fadeIn 0.6s ease-out 0.4s both;
         }
 
         .action-btn {
@@ -310,31 +192,18 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .action-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .action-btn:hover::before {
-            left: 100%;
-        }
-
-        .action-btn:hover {
+        .action-btn:hover, .action-btn:active {
             border-color: var(--nebula-blue);
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
         }
 
-        .action-btn:active {
-            transform: translateY(0) scale(0.98);
+        .action-btn.active {
+            border-color: var(--star-gold);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
         }
 
         .action-icon {
@@ -344,7 +213,7 @@
 
         .action-label {
             font-family: 'Orbitron', sans-serif;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: var(--text-primary);
             text-transform: uppercase;
@@ -358,46 +227,123 @@
             opacity: 0.8;
         }
 
-        /* Космическая цитата */
-        .space-quote {
-            background: rgba(255, 215, 0, 0.1);
-            border-left: 3px solid var(--star-gold);
-            border-radius: 0 12px 12px 0;
-            padding: 16px;
-            margin-bottom: 20px;
-            animation: fadeIn 0.6s ease-out 0.5s both;
-        }
-
-        .quote-text {
-            font-style: italic;
-            color: var(--text-primary);
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .quote-author {
-            color: var(--star-gold);
-            font-size: 12px;
-        }
-
-        /* Космический факт */
-        .space-fact {
-            text-align: center;
-            padding: 16px;
-            background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(0, 212, 255, 0.1));
-            border-radius: 12px;
+        /* Панель контента */
+        .content-panel {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            padding: 24px;
             margin-bottom: 24px;
-            animation: fadeIn 0.6s ease-out 0.6s both;
+            display: none;
+            animation: fadeIn 0.3s ease-out;
         }
 
-        .fact-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
+        .content-panel.visible {
+            display: block;
         }
 
-        .fact-text {
-            font-size: 13px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .panel-icon {
+            font-size: 32px;
+        }
+
+        .panel-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--nebula-blue);
+        }
+
+        .panel-content {
             color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .panel-content p {
+            margin-bottom: 12px;
+        }
+
+        .panel-content strong {
+            color: var(--text-primary);
+        }
+
+        .panel-content .highlight {
+            color: var(--star-gold);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .info-label {
+            color: var(--text-secondary);
+        }
+
+        .info-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+
+        .status-inactive {
+            background: rgba(255, 68, 68, 0.2);
+            color: #ff4444;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 14px;
+            margin-top: 16px;
+            background: var(--cosmic-gradient);
+            border: none;
+            border-radius: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--nebula-blue);
+            color: var(--nebula-blue);
         }
 
         /* Главная кнопка */
@@ -415,24 +361,6 @@
             letter-spacing: 2px;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            animation: fadeIn 0.6s ease-out 0.7s both;
-        }
-
-        .main-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .main-btn:hover::before {
-            left: 100%;
         }
 
         .main-btn:hover {
@@ -440,15 +368,10 @@
             box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
         }
 
-        .main-btn:active {
-            transform: translateY(0) scale(0.98);
-        }
-
         /* Футер */
         .footer {
             text-align: center;
             margin-top: 24px;
-            animation: fadeIn 0.6s ease-out 0.8s both;
         }
 
         .footer p {
@@ -460,7 +383,29 @@
             color: var(--nebula-pink);
         }
 
-        /* Планета внизу */
+        /* Toast уведомление */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 16px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            z-index: 9999;
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-align: center;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Планета */
         .planet {
             position: fixed;
             bottom: -100px;
@@ -469,44 +414,24 @@
             height: 200px;
             background: radial-gradient(circle at 30% 30%, #764ba2, #1a0a2e);
             border-radius: 50%;
-            box-shadow: 
-                inset -20px -20px 40px rgba(0,0,0,0.5),
-                0 0 60px rgba(118, 75, 162, 0.3);
+            box-shadow: inset -20px -20px 40px rgba(0,0,0,0.5), 0 0 60px rgba(118, 75, 162, 0.3);
             z-index: 0;
-            animation: planetRotate 20s linear infinite;
-        }
-
-        .planet::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: -30%;
-            width: 160%;
-            height: 20px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: translateY(-50%) rotate(-15deg);
-            border-radius: 50%;
-        }
-
-        @keyframes planetRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <div class="stars" id="stars"></div>
     <div class="space-objects" id="spaceObjects"></div>
-    <div class="meteor" style="left: 10%; animation-delay: 0s;"></div>
-    <div class="meteor" style="left: 50%; animation-delay: 1.5s;"></div>
-    <div class="meteor" style="left: 80%; animation-delay: 3s;"></div>
     <div class="planet"></div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">✅ Готово!</div>
 
     <div class="container">
         <header class="header">
             <div class="logo">🚀</div>
             <h1>KoryaVPN</h1>
-            <p class="tagline">Выход на орбиту</p>
+            <p class="tagline">Космическая станция</p>
         </header>
 
         <div class="greeting-card">
@@ -515,58 +440,151 @@
             <div class="user-rank" id="userRank">Исследователь галактики</div>
         </div>
 
-        <div class="status-card">
-            <div class="orbit-badge">🛸 На орбите</div>
-            <div class="status-title">Твой статус</div>
-            <div class="status-value">Капитан звездолёта</div>
-            <div class="status-hint">🛡️ Щиты активированы на 100%</div>
-        </div>
-
         <div class="actions">
-            <button class="action-btn" onclick="sendAction('get_vpn')">
+            <button class="action-btn" onclick="showPanel('vpn')">
                 <div class="action-icon">🔑</div>
                 <div class="action-label">Получить VPN</div>
-                <div class="action-hint">запуск двигателей</div>
+                <div class="action-hint">конфигурация</div>
             </button>
-            <button class="action-btn" onclick="sendAction('my_devices')">
+            <button class="action-btn" onclick="showPanel('devices')">
                 <div class="action-icon">🛰️</div>
-                <div class="action-label">Мои девайсы</div>
-                <div class="action-hint">спутники</div>
+                <div class="action-label">Устройства</div>
+                <div class="action-hint">мои спутники</div>
             </button>
-            <button class="action-btn" onclick="sendAction('status')">
+            <button class="action-btn" onclick="showPanel('status')">
                 <div class="action-icon">📡</div>
                 <div class="action-label">Статус</div>
                 <div class="action-hint">телеметрия</div>
             </button>
-            <button class="action-btn" onclick="sendAction('buy')">
+            <button class="action-btn" onclick="showPanel('buy')">
                 <div class="action-icon">💫</div>
-                <div class="action-label">Купить</div>
-                <div class="action-hint">апгрейд корабля</div>
+                <div class="action-label">Тарифы</div>
+                <div class="action-hint">апгрейд</div>
             </button>
-            <button class="action-btn" onclick="sendAction('help')">
+            <button class="action-btn" onclick="showPanel('help')">
                 <div class="action-icon">🌍</div>
                 <div class="action-label">Помощь</div>
-                <div class="action-hint">центр управления</div>
+                <div class="action-hint">база знаний</div>
             </button>
-            <button class="action-btn" onclick="sendAction('support')">
+            <button class="action-btn" onclick="showPanel('support')">
                 <div class="action-icon">👽</div>
                 <div class="action-label">Поддержка</div>
-                <div class="action-hint">связь с базой</div>
+                <div class="action-hint">связь</div>
             </button>
         </div>
 
-        <div class="space-quote">
-            <div class="quote-text" id="quoteText">"Один маленький клик для человека — гигантский скачок для приватности"</div>
-            <div class="quote-author" id="quoteAuthor">— Нил Армстронг (наверное)</div>
+        <!-- Панели контента -->
+        <div class="content-panel" id="panel-vpn">
+            <div class="panel-header">
+                <div class="panel-icon">🔑</div>
+                <div class="panel-title">Получить VPN</div>
+            </div>
+            <div class="panel-content">
+                <p>Выбери протокол для подключения:</p>
+                <p><strong>⚡ AmneziaWG</strong> — быстрый и стабильный, рекомендуем!</p>
+                <p><strong>🔒 IKEv2</strong> — встроенный в систему, без приложений</p>
+                <button class="btn-action" onclick="goToBot('get_vpn')">🚀 Получить конфиг в боте</button>
+            </div>
         </div>
 
-        <div class="space-fact">
-            <div class="fact-icon" id="factIcon">🌌</div>
-            <div class="fact-text" id="factText">Свет от ближайшей звезды достигает Земли за 4 года. Наш VPN работает быстрее.</div>
+        <div class="content-panel" id="panel-devices">
+            <div class="panel-header">
+                <div class="panel-icon">🛰️</div>
+                <div class="panel-title">Мои устройства</div>
+            </div>
+            <div class="panel-content">
+                <div class="info-row">
+                    <span class="info-label">Максимум устройств</span>
+                    <span class="info-value">до 5 шт.</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Протоколы</span>
+                    <span class="info-value">AmneziaWG, IKEv2</span>
+                </div>
+                <p style="margin-top: 16px;">Каждому устройству нужен свой конфиг. Управляй ими через бота.</p>
+                <button class="btn-action" onclick="goToBot('my_devices')">📱 Управление в боте</button>
+            </div>
+        </div>
+
+        <div class="content-panel" id="panel-status">
+            <div class="panel-header">
+                <div class="panel-icon">📡</div>
+                <div class="panel-title">Статус подписки</div>
+            </div>
+            <div class="panel-content">
+                <div class="info-row">
+                    <span class="info-label">Статус</span>
+                    <span class="status-badge status-active">🟢 Активен</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Тариф</span>
+                    <span class="info-value">Космонавт</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Защита</span>
+                    <span class="info-value">🛡️ 100%</span>
+                </div>
+                <button class="btn-action" onclick="goToBot('status')">📊 Подробнее в боте</button>
+            </div>
+        </div>
+
+        <div class="content-panel" id="panel-buy">
+            <div class="panel-header">
+                <div class="panel-icon">💫</div>
+                <div class="panel-title">Тарифы</div>
+            </div>
+            <div class="panel-content">
+                <div class="info-row">
+                    <span class="info-label">1 месяц</span>
+                    <span class="info-value highlight">100 ₽</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">3 месяца</span>
+                    <span class="info-value highlight">250 ₽ <small>(-17%)</small></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">6 месяцев</span>
+                    <span class="info-value highlight">450 ₽ <small>(-25%)</small></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">12 месяцев</span>
+                    <span class="info-value highlight">800 ₽ <small>(-33%)</small></span>
+                </div>
+                <button class="btn-action" onclick="goToBot('buy_plans')">💳 Оплатить в боте</button>
+            </div>
+        </div>
+
+        <div class="content-panel" id="panel-help">
+            <div class="panel-header">
+                <div class="panel-icon">🌍</div>
+                <div class="panel-title">Помощь</div>
+            </div>
+            <div class="panel-content">
+                <p><strong>Как подключить VPN?</strong></p>
+                <p>1. Нажми "Получить VPN" в боте</p>
+                <p>2. Выбери протокол (рекомендуем AmneziaWG)</p>
+                <p>3. Скачай конфиг и импортируй в приложение</p>
+                <p style="margin-top: 12px;"><strong>Нужна помощь?</strong></p>
+                <button class="btn-action" onclick="goToBot('help')">📚 FAQ в боте</button>
+                <button class="btn-action btn-secondary" onclick="showPanel('support')" style="margin-top: 8px;">💬 Написать в поддержку</button>
+            </div>
+        </div>
+
+        <div class="content-panel" id="panel-support">
+            <div class="panel-header">
+                <div class="panel-icon">👽</div>
+                <div class="panel-title">Поддержка</div>
+            </div>
+            <div class="panel-content">
+                <p>Мы на связи! Напиши нам в боте, и мы поможем.</p>
+                <p><strong>Время ответа:</strong> обычно до 1 часа</p>
+                <p><strong>Работаем:</strong> 24/7 🌙</p>
+                <button class="btn-action" onclick="goToBot('support')">✉️ Написать в поддержку</button>
+            </div>
         </div>
 
         <button class="main-btn" onclick="closeApp()">
-            🚀 Вернуться на базу
+            🚀 Вернуться в бота
         </button>
 
         <footer class="footer">
@@ -576,70 +594,35 @@
     </div>
 
     <script>
-        // Проверяем, запущено ли в Telegram
+        // Telegram WebApp
         const tg = window.Telegram?.WebApp;
-        const isInTelegram = tg && tg.initData && tg.initData.length > 0;
         
         if (tg) {
             tg.ready();
             tg.expand();
-            
-            // Настройка MainButton
-            tg.MainButton.text = "🚀 ЗАКРЫТЬ";
-            tg.MainButton.color = "#667eea";
-            tg.MainButton.textColor = "#ffffff";
-            tg.MainButton.onClick(closeApp);
-            tg.MainButton.show();
+            tg.enableClosingConfirmation();
         }
 
-        // Персонализация
+        // Данные
         const ranks = [
             "Исследователь галактики",
             "Повелитель астероидов", 
             "Космический странник",
             "Хранитель чёрных дыр",
-            "Звёздный навигатор",
-            "Межпланетный агент"
-        ];
-
-        const quotes = [
-            { text: '"Один маленький клик для человека — гигантский скачок для приватности"', author: '— Нил Армстронг (наверное)' },
-            { text: '"В космосе никто не услышит твой IP"', author: '— Ридли Скотт' },
-            { text: '"Бесконечность — не предел, в отличие от твоего трафика без VPN"', author: '— Базз Лайтер' },
-            { text: '"Мы выбираем VPN не потому, что это легко, а потому что это умно"', author: '— Джон Кеннеди (адаптировано)' },
-            { text: '"Хьюстон, у нас нет проблем — мы используем VPN"', author: '— Аполлон 13 (альт. версия)' }
-        ];
-
-        const facts = [
-            { icon: '🌌', text: 'Свет от ближайшей звезды достигает Земли за 4 года. Наш VPN работает быстрее.' },
-            { icon: '🪐', text: 'На Сатурне идут алмазные дожди. У нас есть кое-что ценнее — твоя приватность.' },
-            { icon: '☄️', text: 'Каждый день на Землю падает 48 тонн космической пыли. И ни грамма твоих данных!' },
-            { icon: '🌙', text: 'На Луне нет интернета. Зато там и нет слежки. Мы даём тебе лучшее из двух миров.' },
-            { icon: '⭐', text: 'Во Вселенной больше звёзд, чем песчинок на Земле. Но только одна защищает твои данные — KoryaVPN.' },
-            { icon: '🔭', text: 'Телескоп Хаббл видит галактики за 13 млрд световых лет. Твой провайдер больше ничего не видит.' }
+            "Звёздный навигатор"
         ];
 
         const spaceEmojis = ['🌟', '✨', '💫', '⭐', '🌙', '☄️', '🛸', '🌍', '🪐', '🌌'];
 
-        // Установка имени пользователя
+        // Инициализация
         const userName = tg?.initDataUnsafe?.user?.first_name || 'Космонавт';
         document.getElementById('userName').textContent = userName;
         document.getElementById('userRank').textContent = ranks[Math.floor(Math.random() * ranks.length)];
 
-        // Случайная цитата
-        const quote = quotes[Math.floor(Math.random() * quotes.length)];
-        document.getElementById('quoteText').textContent = quote.text;
-        document.getElementById('quoteAuthor').textContent = quote.author;
-
-        // Случайный факт
-        const fact = facts[Math.floor(Math.random() * facts.length)];
-        document.getElementById('factIcon').textContent = fact.icon;
-        document.getElementById('factText').textContent = fact.text;
-
-        // Генерация звёзд
+        // Создание звёзд
         function createStars() {
-            const starsContainer = document.getElementById('stars');
-            for (let i = 0; i < 100; i++) {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 80; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
@@ -648,14 +631,14 @@
                 star.style.height = star.style.width;
                 star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
                 star.style.animationDelay = Math.random() * 3 + 's';
-                starsContainer.appendChild(star);
+                container.appendChild(star);
             }
         }
 
-        // Генерация космических объектов
+        // Создание космических объектов
         function createSpaceObjects() {
             const container = document.getElementById('spaceObjects');
-            for (let i = 0; i < 8; i++) {
+            for (let i = 0; i < 6; i++) {
                 const obj = document.createElement('div');
                 obj.className = 'space-object';
                 obj.textContent = spaceEmojis[Math.floor(Math.random() * spaceEmojis.length)];
@@ -670,99 +653,87 @@
         createStars();
         createSpaceObjects();
 
-        // Названия действий для уведомлений
-        const actionNames = {
-            'get_vpn': '🔑 Получить VPN',
-            'my_devices': '🛰️ Мои устройства',
-            'status': '📡 Статус',
-            'buy': '💫 Купить доступ',
-            'help': '🌍 Помощь',
-            'support': '👽 Поддержка'
-        };
+        // Текущая открытая панель
+        let currentPanel = null;
 
-        // Показать уведомление
-        function showNotification(message) {
-            // Создаём элемент уведомления
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: linear-gradient(135deg, #667eea, #764ba2);
-                color: white;
-                padding: 12px 24px;
-                border-radius: 12px;
-                font-family: 'Orbitron', sans-serif;
-                font-size: 14px;
-                z-index: 9999;
-                box-shadow: 0 4px 20px rgba(102, 126, 234, 0.5);
-                animation: slideIn 0.3s ease-out;
-            `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
+        // Показать панель
+        function showPanel(panelId) {
+            // Вибрация
+            if (tg?.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('light');
+            }
+
+            // Скрыть все панели
+            document.querySelectorAll('.content-panel').forEach(p => {
+                p.classList.remove('visible');
+            });
+
+            // Убрать active со всех кнопок
+            document.querySelectorAll('.action-btn').forEach(b => {
+                b.classList.remove('active');
+            });
+
+            const panel = document.getElementById('panel-' + panelId);
             
-            // Удаляем через 2 секунды
-            setTimeout(() => {
-                notification.style.animation = 'fadeOut 0.3s ease-out forwards';
-                setTimeout(() => notification.remove(), 300);
-            }, 2000);
+            if (currentPanel === panelId) {
+                // Закрыть если та же панель
+                currentPanel = null;
+            } else {
+                // Открыть новую
+                if (panel) {
+                    panel.classList.add('visible');
+                    // Прокрутить к панели
+                    setTimeout(() => {
+                        panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100);
+                }
+                currentPanel = panelId;
+                
+                // Подсветить кнопку
+                event.currentTarget.classList.add('active');
+            }
         }
 
-        // Добавляем стили для анимаций уведомлений
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-                to { opacity: 1; transform: translateX(-50%) translateY(0); }
-            }
-            @keyframes fadeOut {
-                from { opacity: 1; }
-                to { opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
+        // Показать toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
 
-        // Отправка действия в бота
-        function sendAction(action) {
-            // Визуальная обратная связь
+        // Перейти в бота с действием
+        function goToBot(action) {
             if (tg?.HapticFeedback) {
                 tg.HapticFeedback.impactOccurred('medium');
             }
-            
-            const actionName = actionNames[action] || action;
-            
-            if (isInTelegram) {
-                // В Telegram - отправляем данные и закрываем
-                showNotification(`${actionName} — переход в бота...`);
-                setTimeout(() => {
+
+            showToast('🚀 Переход в бота...');
+
+            setTimeout(() => {
+                if (tg) {
+                    // Отправляем данные в бота и закрываем
                     tg.sendData(JSON.stringify({ action: action }));
-                }, 500);
-            } else {
-                // Вне Telegram - показываем сообщение
-                showNotification(`${actionName} — откройте в Telegram!`);
-                console.log('Action:', action);
-            }
+                } else {
+                    showToast('⚠️ Откройте через Telegram!');
+                }
+            }, 800);
         }
 
-        // Закрытие приложения
+        // Закрыть приложение
         function closeApp() {
             if (tg?.HapticFeedback) {
                 tg.HapticFeedback.impactOccurred('heavy');
             }
-            
-            if (isInTelegram) {
+
+            if (tg) {
                 tg.close();
             } else {
-                showNotification('🚀 Откройте в Telegram для полной работы!');
+                showToast('🚀 Откройте через Telegram бота!');
             }
-        }
-        
-        // Показываем предупреждение если открыто вне Telegram
-        if (!isInTelegram) {
-            setTimeout(() => {
-                showNotification('⚠️ Откройте через Telegram бота!');
-            }, 1000);
         }
     </script>
 </body>
